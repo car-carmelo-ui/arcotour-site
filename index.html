@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f0e5">
+  <meta name="description" content="ArcoTour: itinerari culturali, mappe e audioguide per scoprire Roma in italiano e inglese.">
+  <title>ArcoTour | Discover the story of every place</title>
+  <style>
+    :root {
+      --cream: #f6f0e5;
+      --white: #fffdf9;
+      --ink: #29231e;
+      --terracotta: #b64b29;
+      --gold: #d9a441;
+      --line: #ddd0bd;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 22px 7%;
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      font-family: Georgia, serif;
+      font-size: 27px;
+      font-weight: bold;
+      letter-spacing: .02em;
+      text-decoration: none;
+    }
+
+    .brand span { color: var(--terracotta); }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    nav a { text-decoration: none; }
+
+    nav a:hover, footer a:hover {
+      color: var(--terracotta);
+    }
+
+    .language {
+      border: 1px solid var(--line);
+      background: var(--white);
+      padding: 7px 12px;
+      border-radius: 30px;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    .hero {
+      padding: 105px 7% 115px;
+      text-align: center;
+      background: linear-gradient(160deg, #f8f1e5, #ebddc7);
+    }
+
+    .symbol {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px;
+      height: 100px;
+      border: 3px solid var(--terracotta);
+      border-radius: 32px;
+      font-family: Georgia, serif;
+      font-size: 58px;
+      color: var(--terracotta);
+      margin-bottom: 26px;
+    }
+
+    .eyebrow {
+      color: var(--terracotta);
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    h1, h2, h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 76px);
+      max-width: 900px;
+      margin: 18px auto;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 22px auto;
+      font-size: 19px;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 13px 30px;
+      background: var(--terracotta);
+      color: white;
+      border-radius: 35px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .button:hover { background: #913b21; }
+
+    section {
+      max-width: 1120px;
+      margin: auto;
+      padding: 80px 7%;
+    }
+
+    section h2 {
+      font-size: clamp(30px, 4vw, 46px);
+      margin: 12px 0 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 35px;
+    }
+
+    .card {
+      background: var(--white);
+      padding: 32px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+    }
+
+    .card .number {
+      color: var(--terracotta);
+      font-family: Georgia, serif;
+      font-size: 34px;
+    }
+
+    .card h3 { font-size: 23px; }
+
+    .highlight {
+      max-width: none;
+      background: #eadac3;
+      text-align: center;
+    }
+
+    .highlight > div {
+      max-width: 760px;
+      margin: auto;
+    }
+
+    footer {
+      background: #2c2621;
+      color: #f5eadb;
+      padding: 42px 7%;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    footer a {
+      display: inline-block;
+      margin: 8px 12px;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    [data-lang="en"] { display: none; }
+
+    body.english [data-lang="it"] { display: none; }
+    body.english [data-lang="en"] { display: revert; }
+
+    @media (max-width: 720px) {
+      header { flex-direction: column; }
+      nav { justify-content: center; }
+      .hero { padding: 75px 7%; }
+      .cards { grid-template-columns: 1fr; }
+      section { padding: 60px 7%; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html">ARCO<span>TOUR</span></a>
+  <nav aria-label="Main navigation">
+    <a href="#discover">
+      <span data-lang="it">Scopri</span>
+      <span data-lang="en">Discover</span>
+    </a>
+    <a href="#experience">
+      <span data-lang="it">L'esperienza</span>
+      <span data-lang="en">Experience</span>
+    </a>
+    <a href="support.html">
+      <span data-lang="it">Assistenza</span>
+      <span data-lang="en">Support</span>
+    </a>
+    <button class="language" type="button" onclick="toggleLanguage()" aria-label="Change language">
+      IT / EN
+    </button>
+  </nav>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="symbol" aria-hidden="true">A</div>
+    <div class="eyebrow">ArcoTour · Cultural Travel</div>
+
+    <div data-lang="it">
+      <h1>Ogni luogo ha una storia da raccontare.</h1>
+      <p>Scopri Roma attraverso itinerari culturali, mappe e audioguide. Un viaggio tra arte, storia e luoghi straordinari, al tuo ritmo.</p>
+      <a class="button" href="#discover">Scopri ArcoTour</a>
+    </div>
+
+    <div data-lang="en">
+      <h1>Every place has a story to tell.</h1>
+      <p>Discover Rome through cultural itineraries, maps and audio guides. Explore art, history and remarkable places at your own pace.</p>
+      <a class="button" href="#discover">Discover ArcoTour</a>
+    </div>
+  </div>
+
+  <section id="discover">
+    <div data-lang="it">
+      <div class="eyebrow">La città eterna</div>
+      <h2>Roma, strato dopo strato.</h2>
+      <p>Dal mondo antico alle grandi basiliche, dalle piazze rinascimentali ai capolavori del Barocco: ArcoTour ti accompagna alla scoperta del patrimonio culturale di Roma.</p>
+    </div>
+    <div data-lang="en">
+      <div class="eyebrow">The Eternal City</div>
+      <h2>Rome, layer by layer.</h2>
+      <p>From ancient Rome to its magnificent basilicas, Renaissance squares and Baroque masterpieces, ArcoTour helps you explore the city's cultural heritage.</p>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div data-lang="it">
+      <div class="eyebrow">La tua esperienza</div>
+      <h2>Esplora. Ascolta. Scopri.</h2>
+    </div>
+    <div data-lang="en">
+      <div class="eyebrow">Your experience</div>
+      <h2>Explore. Listen. Discover.</h2>
+    </div>
+
+    <div class="cards">
+      <article class="card">
+        <div class="number">01</div>
+        <h3>
+          <span data-lang="it">Itinerari</span>
+          <span data-lang="en">Itineraries</span>
+        </h3>
+        <p data-lang="it">Percorsi organizzati per conoscere monumenti, piazze, chiese e luoghi di interesse.</p>
+        <p data-lang="en">Curated routes through monuments, squares, churches and cultural landmarks.</p>
+      </article>
+
+      <article class="card">
+        <div class="number">02</div>
+        <h3>
+          <span data-lang="it">Audioguide</span>
+          <span data-lang="en">Audio guides</span>
+        </h3>
+        <p data-lang="it">Racconti e approfondimenti culturali disponibili in italiano e inglese.</p>
+        <p data-lang="en">Cultural stories and insights available in Italian and English.</p>
+      </article>
+
+      <article class="card">
+        <div class="number">03</div>
+        <h3>
+          <span data-lang="it">Mappe</span>
+          <span data-lang="en">Maps</span>
+        </h3>
+        <p data-lang="it">Strumenti di orientamento per organizzare la visita secondo i tuoi interessi.</p>
+        <p data-lang="en">Navigation tools to plan your visit around your own interests.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="highlight">
+    <div data-lang="it">
+      <div class="eyebrow">ArcoTour Premium</div>
+      <h2>Più tempo per scoprire.</h2>
+      <p>Scegli tra pass di 24 ore, 72 ore o 10 giorni (240 ore). Pagamento unico, senza rinnovo automatico. Le opzioni di acquisto sono disponibili nell'app quando abilitate.</p>
+    </div>
+    <div data-lang="en">
+      <div class="eyebrow">ArcoTour Premium</div>
+      <h2>More time to discover.</h2>
+      <p>Choose a 24-hour, 72-hour or 10-day (240-hour) pass. One-time payment, no automatic renewal. Purchase options are available in the app when enabled.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <strong>ARCOTOUR</strong>
+  <p>Discover the story of every place.</p>
+
+  <a href="support.html">Support / Assistenza</a>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="terms.html">Terms / Condizioni</a>
+
+  <p>© 2026 ArcoTour. All rights reserved.</p>
+</footer>
+
+<script>
+  function toggleLanguage() {
+    const english = document.body.classList.toggle("english");
+    document.documentElement.lang = english ? "en" : "it";
+  }
+</script>
+
+</body>
+</html>
