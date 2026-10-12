@@ -114,24 +114,62 @@ class SitoVero(unittest.TestCase):
         dati = sitegen.carica_dati(RADICE)
         self.assertEqual(sitegen.costruisci(dati), sitegen.costruisci(dati))
 
-    def test_oggi_il_cancello_di_pubblicazione_e_chiuso(self):
-        """Finché mancano i dati di chi pubblica NON si può dire «pronto»: è voluto."""
+    def test_il_cancello_di_pubblicazione_segue_i_dati_veri(self):
+        """Il cancello dice «manca …» per ogni dato ancora segnaposto e per la revisione legale non approvata: né più né meno.
+        Finché il sito è una bozza deve restare chiuso (è voluto: nessun dato viene inventato)."""
+        sito = check_site.Sito(RADICE)
         e, _ = check_site.controlla(RADICE, rilascio=True)
         messaggi = " ".join(m for _, m in e.errori)
-        self.assertIn("manca nome o ragione sociale", messaggi)
-        self.assertIn("manca indirizzo o sede", messaggi)
-        self.assertIn("manca email di assistenza", messaggi)
-        self.assertIn("revisione_legale", messaggi)
+        v = sito.dati["venditore"]
+        for chiave, frase in (("nome", "manca nome o ragione sociale"), ("indirizzo", "manca indirizzo o sede"), ("email", "manca email di assistenza")):
+            mancante = not v[chiave].strip() or v[chiave].strip().startswith("DA_COMPLETARE")
+            self.assertEqual(frase in messaggi, mancante, f"{chiave}: il cancello dice «{frase}»? {frase in messaggi}; il dato manca? {mancante}")
+        self.assertEqual("revisione_legale" in messaggi, sito.dati.get("revisione_legale") != "approvata")
+        if sito.bozza:
+            self.assertTrue(e.errori, "finché il sito è una bozza il cancello deve restare chiuso")
 
-    def test_nessun_dato_personale_inventato_o_vero(self):
+    def test_privacy_e_condizioni_restano_bozza_finche_non_sono_completate_e_verificate(self):
+        d = json.loads(leggi(RADICE, "content/site.json"))
+        v = d["venditore"]
+        incompleto = d.get("revisione_legale") != "approvata" or any(not v[k].strip() or v[k].startswith("DA_COMPLETARE") for k in ("nome", "indirizzo", "email"))
+        if not incompleto:
+            return  # dati completi e revisione approvata: le pagine possono uscire dalla bozza
+        for f in ("privacy.html", "terms.html", "en/privacy.html", "en/terms.html"):
+            testo = leggi(RADICE, f)
+            self.assertIn('class="bozza"', testo, f)
+            self.assertIn("noindex", testo, f)
+
+    def test_nessuna_email_nei_file_pubblici_tranne_quella_di_assistenza(self):
+        """Mai email personali: l'unico indirizzo ammesso è quello di assistenza scelto in content/site.json (e gli indirizzi «noreply»)."""
+        v = check_site.Sito(RADICE).dati["venditore"]["email"].strip()
+        ammessa = None if (not v or v.startswith("DA_COMPLETARE")) else v.lower()
         for f in RADICE.rglob("*"):
             rel = f.relative_to(RADICE).as_posix()
             if not f.is_file() or rel.startswith(".git/") or "__pycache__" in rel or f.suffix not in check_site.ESTENSIONI_TESTO or rel == "tools/test_site.py":
                 continue
             testo = f.read_text(encoding="utf-8")
             for m in check_site.EMAIL.finditer(testo):
-                if m.group(0).split("@")[0].lower() != "noreply":
-                    self.fail(f"{rel}: indirizzo email «{m.group(0)}» in un file pubblico")
+                indirizzo = m.group(0).lower()
+                if indirizzo == ammessa or indirizzo.split("@")[0] == "noreply":
+                    continue
+                self.fail(f"{rel}: indirizzo email «{m.group(0)}» in un file pubblico (l'unico ammesso è quello di assistenza)")
+
+    def test_l_email_di_assistenza_compare_dove_serve_e_solo_quella(self):
+        """Assistenza, privacy e condizioni (italiano e inglese): se l'email è vera ogni collegamento mailto è proprio quella;
+        se è ancora un segnaposto non c'è nessun mailto."""
+        sito = check_site.Sito(RADICE)
+        email = sito.dati["venditore"]["email"].strip()
+        reale = bool(email) and not email.startswith("DA_COMPLETARE")
+        for pagina in check_site.PAGINE_LEGALI:
+            for f in (pagina, "en/" + pagina):
+                mail = [l["href"] for l in sito.pagine[f].a if (l["href"] or "").startswith("mailto:")]
+                if reale:
+                    self.assertTrue(mail, f"{f}: manca il collegamento all'email di assistenza")
+                    self.assertEqual(set(mail), {"mailto:" + email}, f)
+                else:
+                    self.assertEqual(mail, [], f)
+        for f in ("index.html", "en/index.html"):
+            self.assertNotIn("mailto:", leggi(RADICE, f), f"{f}: la pagina iniziale non ha un'email")
 
     def test_i_segnaposto_non_compaiono_mai_scritti_grezzi_nelle_pagine(self):
         for f in check_site.Sito(RADICE).pagine:
@@ -145,17 +183,16 @@ class SitoVero(unittest.TestCase):
         for t in ("Rome 24 hours", "€2.99", "Rome 72 hours", "€4.99", "Rome Complete", "€7.99", "10 days (240 hours)"):
             self.assertIn(t, en)
 
-    def test_le_pagine_legali_oggi_sono_in_revisione_e_non_indicizzabili(self):
+    def test_le_pagine_legali_seguono_lo_stato_di_revisione(self):
+        """In bozza: avviso, noindex e fuori dalla sitemap. Completate e approvate: niente avviso, indicizzabili, nella sitemap."""
         sito = check_site.Sito(RADICE)
-        self.assertTrue(sito.bozza)
+        sitemap = leggi(RADICE, "sitemap.xml")
         for pagina in check_site.PAGINE_LEGALI:
             for f in (pagina, "en/" + pagina):
                 p = sito.pagine[f]
-                self.assertIn("noindex", p.meta_contenuto("robots"), f)
-                self.assertIn("bozza", p.classi, f)
-        sitemap = leggi(RADICE, "sitemap.xml")
-        for pagina in check_site.PAGINE_LEGALI:
-            self.assertNotIn(pagina, sitemap)
+                self.assertEqual("noindex" in (p.meta_contenuto("robots") or ""), sito.bozza, f)
+                self.assertEqual("bozza" in p.classi, sito.bozza, f)
+            self.assertEqual(pagina in sitemap, not sito.bozza, pagina)
 
 
 # ============================================================================================ 2. il generatore
