@@ -1,0 +1,116 @@
+{
+  "versione": "1.0",
+  "aggiornata": {
+    "it": "11 ottobre 2026",
+    "en": "11 October 2026"
+  },
+  "titolo": {
+    "it": "Informativa sulla privacy",
+    "en": "Privacy policy"
+  },
+  "sottotitolo": {
+    "it": "ArcoTour · versione 1.0 · Roma",
+    "en": "ArcoTour · version 1.0 · Rome"
+  },
+  "sezioni": [
+    {
+      "id": "in-breve",
+      "titolo": {
+        "it": "In breve",
+        "en": "In short"
+      },
+      "testo": {
+        "it": "ArcoTour non ha account, non ha pubblicità e non usa strumenti di analisi o di tracciamento.\n\nLa tua posizione resta sul tuo telefono: non la riceviamo, non la salviamo e non la mandiamo a nessuno.\n\nL'app usa internet solo per due cose: scaricare le mappe da OpenStreetMap e, se compri un pass, parlare con l'App Store di Apple. I racconti, i testi e le foto sono dentro l'app.",
+        "en": "ArcoTour has no accounts, no ads and no analytics or tracking tools.\n\nYour location stays on your phone: we do not receive it, we do not save it and we do not send it to anyone.\n\nThe app uses the internet for only two things: downloading maps from OpenStreetMap and, if you buy a pass, talking to Apple’s App Store. The stories, the texts and the photos are inside the app."
+      }
+    },
+    {
+      "id": "chi-siamo",
+      "titolo": {
+        "it": "Chi siamo",
+        "en": "Who we are"
+      },
+      "testo": {
+        "it": "Titolare del trattamento: {titolare}, {indirizzo}.\n\nPer qualsiasi domanda sulla privacy scrivi a {email}.",
+        "en": "Data controller: {titolare}, {indirizzo}.\n\nFor any question about privacy, write to {email}."
+      }
+    },
+    {
+      "id": "posizione",
+      "titolo": {
+        "it": "La tua posizione",
+        "en": "Your location"
+      },
+      "testo": {
+        "it": "L'app usa la posizione del telefono per tre cose: capire quando arrivi a una tappa del tour e far partire il racconto, mostrarti le fermate dei mezzi pubblici vicine e guidarti a piedi fino a una fermata.\n\nLa usa solo mentre un tour, la scheda «Mezzi» o la funzione «Accompagnami» sono in uso, e continua anche a schermo spento o con l'app in secondo piano, così il racconto parte anche con il telefono in tasca. In quei momenti iOS mostra un indicatore.\n\nLa posizione viene elaborata soltanto sul telefono: non viene salvata, non arriva a noi e non viene condivisa con nessuno.\n\nPuoi negare o ritirare il permesso quando vuoi da Impostazioni di iOS → Privacy e sicurezza → Localizzazione → ArcoTour. Senza la posizione l'app funziona, ma i racconti non partono da soli.",
+        "en": "The app uses your phone’s location for three things: knowing when you reach a stop on the tour so the story can start, showing you the public transport stops nearby, and guiding you on foot to a stop.\n\nIt only uses it while a tour, the “Transport” tab or the “Take me there” feature is in use, and it keeps going with the screen off or the app in the background, so the story starts even when your phone is in your pocket. While it does, iOS shows an indicator.\n\nYour location is processed only on your phone: it is not saved, it does not reach us and it is not shared with anyone.\n\nYou can refuse or withdraw the permission at any time in iOS Settings → Privacy & Security → Location Services → ArcoTour. Without location the app still works, but the stories do not start by themselves."
+      }
+    },
+    {
+      "id": "mappe",
+      "titolo": {
+        "it": "Le mappe",
+        "en": "Maps"
+      },
+      "testo": {
+        "it": "Le mappe sono di OpenStreetMap. Per mostrarle, l'app scarica da tile.openstreetmap.org piccole tessere di mappa.\n\nQuei server vedono l'indirizzo IP del telefono e quali tessere chiedi, cioè la zona di mappa che stai guardando (che può comprendere dove ti trovi). Non ricevono il tuo nome né la tua posizione GPS.\n\nCome OpenStreetMap tratta questi dati è spiegato nella sua informativa: osmfoundation.org/wiki/Privacy_Policy.\n\nL'app tiene sul telefono una copia delle tessere già viste, per rivederle anche senza internet.",
+        "en": "The maps come from OpenStreetMap. To show them, the app downloads small map tiles from tile.openstreetmap.org.\n\nThose servers see your phone’s IP address and which tiles you ask for, that is, the area of the map you are looking at (which may include where you are). They do not receive your name or your GPS location.\n\nHow OpenStreetMap handles this data is explained in its own policy: osmfoundation.org/wiki/Privacy_Policy.\n\nThe app keeps a copy of the tiles you have already seen on your phone, so you can see them again without internet."
+      }
+    },
+    {
+      "id": "acquisti",
+      "titolo": {
+        "it": "Gli acquisti",
+        "en": "Purchases"
+      },
+      "testo": {
+        "it": "I pass Roma si comprano con l'App Store di Apple. Il pagamento lo gestisce Apple: noi non vediamo né conserviamo il numero della carta né altri dati di pagamento. Come Apple tratta i tuoi dati è spiegato nella sua informativa: apple.com/legal/privacy.\n\nL'app riceve da Apple la conferma dell'acquisto e conserva sul telefono soltanto quali pass hai e fino a quando valgono, per aprire i contenuti.",
+        "en": "The Rome passes are bought through Apple’s App Store. Apple handles the payment: we neither see nor keep your card number or any other payment data. How Apple handles your data is explained in its own policy: apple.com/legal/privacy.\n\nThe app receives the purchase confirmation from Apple and keeps on your phone only which passes you have and until when they are valid, to unlock the content."
+      }
+    },
+    {
+      "id": "sul-telefono",
+      "titolo": {
+        "it": "Cosa resta sul tuo telefono",
+        "en": "What stays on your phone"
+      },
+      "testo": {
+        "it": "La lingua che hai scelto, lo stato dei tuoi pass e una copia temporanea delle tessere della mappa. Nient'altro.\n\nTogliendo l'app dal telefono, tutto questo viene cancellato.",
+        "en": "The language you chose, the state of your passes and a temporary copy of the map tiles. Nothing else.\n\nIf you remove the app from your phone, all of this is deleted."
+      }
+    },
+    {
+      "id": "non-facciamo",
+      "titolo": {
+        "it": "Cosa non facciamo",
+        "en": "What we do not do"
+      },
+      "testo": {
+        "it": "Non c'è nessun account da creare. Non c'è pubblicità. Non usiamo strumenti di analisi, di statistica o di tracciamento, né librerie di terzi che raccolgano dati su come usi l'app.\n\nNon vendiamo e non cediamo dati, perché non li abbiamo. I caratteri di scrittura sono dentro l'app: non si scaricano da servizi esterni.",
+        "en": "There is no account to create. There are no ads. We do not use analytics, statistics or tracking tools, nor third-party libraries that collect data about how you use the app.\n\nWe do not sell or hand over data, because we do not have any. The typefaces are inside the app: they are not downloaded from outside services."
+      }
+    },
+    {
+      "id": "diritti",
+      "titolo": {
+        "it": "I tuoi diritti",
+        "en": "Your rights"
+      },
+      "testo": {
+        "it": "Poiché non raccogliamo dati personali che ti riguardano, non abbiamo niente da mostrarti, correggere o cancellare. Per i dati che Apple e OpenStreetMap trattano per conto loro valgono le loro informative.\n\nSe pensi che i tuoi dati siano stati trattati in modo scorretto puoi scriverci a {email} e puoi rivolgerti all'autorità per la protezione dei dati personali del tuo Paese (in Italia, il Garante: garanteprivacy.it).",
+        "en": "Because we do not collect personal data about you, we have nothing to show you, correct or delete. For the data that Apple and OpenStreetMap handle on their own behalf, their own policies apply.\n\nIf you think your data has been handled incorrectly you can write to us at {email} and you can contact the data protection authority in your country (in Italy, the Garante: garanteprivacy.it)."
+      }
+    },
+    {
+      "id": "modifiche",
+      "titolo": {
+        "it": "Modifiche",
+        "en": "Changes"
+      },
+      "testo": {
+        "it": "Se in futuro l'app userà i dati in modo diverso (per esempio con un account o con mappe da scaricare), aggiorneremo questa pagina e la data qui sotto, e lo diremo nell'app prima di cominciare.\n\nUltimo aggiornamento: {aggiornata}.",
+        "en": "If in the future the app uses data in a different way (for example with an account or with downloadable maps), we will update this page and the date below, and we will say so in the app before we start.\n\nLast updated: {aggiornata}."
+      }
+    }
+  ]
+}

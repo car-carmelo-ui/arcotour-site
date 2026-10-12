@@ -1,0 +1,286 @@
+[
+  {
+    "id": "tiburtina_colosseo",
+    "tipo": "metro",
+    "titolo": {
+      "it": "Da Tiburtina al Colosseo",
+      "en": "From Tiburtina to the Colosseum"
+    },
+    "tappe": [
+      {
+        "it": "Castra Praetoria",
+        "en": "Castra Praetoria"
+      },
+      {
+        "it": "Terme di Diocleziano",
+        "en": "Baths of Diocletian"
+      },
+      {
+        "it": "Suburra",
+        "en": "Suburra"
+      },
+      {
+        "it": "Colosseo",
+        "en": "Colosseum"
+      }
+    ]
+  },
+  {
+    "id": "termini_circo_massimo",
+    "tipo": "metro",
+    "titolo": {
+      "it": "Da Termini al Circo Massimo",
+      "en": "From Termini to the Circus Maximus"
+    },
+    "tappe": [
+      {
+        "it": "Terme di Diocleziano",
+        "en": "Baths of Diocletian"
+      },
+      {
+        "it": "Suburra",
+        "en": "Suburra"
+      },
+      {
+        "it": "Circo Massimo",
+        "en": "Circus Maximus"
+      }
+    ]
+  },
+  {
+    "id": "roma_antica",
+    "tipo": "walk",
+    "titolo": {
+      "it": "Colosseo e Fori",
+      "en": "Colosseum and Forums"
+    },
+    "tappe": [
+      {
+        "it": "Colosseo",
+        "en": "Colosseum"
+      },
+      {
+        "it": "Basilica di Santa Francesca Romana",
+        "en": "Basilica of Santa Francesca Romana"
+      },
+      {
+        "it": "Arco di Costantino",
+        "en": "Arch of Constantine"
+      },
+      {
+        "it": "Fori Imperiali",
+        "en": "Imperial fora"
+      }
+    ]
+  },
+  {
+    "id": "termini_esquilino_monti",
+    "tipo": "walk",
+    "titolo": {
+      "it": "Termini, Esquilino e Monti",
+      "en": "Termini, Esquiline and Monti"
+    },
+    "tappe": [
+      {
+        "it": "Cappella Cornaro",
+        "en": "Cornaro Chapel"
+      },
+      {
+        "it": "Basilica di Santa Maria Maggiore",
+        "en": "Basilica of Santa Maria Maggiore"
+      },
+      {
+        "it": "San Pietro in Vincoli",
+        "en": "Saint Peter in Chains"
+      }
+    ]
+  },
+  {
+    "id": "traiano_campidoglio",
+    "tipo": "walk",
+    "titolo": {
+      "it": "Dalla Colonna Traiana al Campidoglio",
+      "en": "From Trajan's Column to the Capitoline Hill"
+    },
+    "tappe": [
+      {
+        "it": "Colonna Traiana",
+        "en": "Trajan's Column"
+      },
+      {
+        "it": "Giardino Grande di Palazzo Venezia",
+        "en": "Great Garden of Palazzo Venezia"
+      },
+      {
+        "it": "Vittoriano",
+        "en": "Victor Emmanuel II Monument"
+      },
+      {
+        "it": "Santa Maria in Aracoeli",
+        "en": "Santa Maria in Aracoeli"
+      },
+      {
+        "it": "Piazza del Campidoglio",
+        "en": "Piazza del Campidoglio"
+      }
+    ]
+  },
+  {
+    "id": "tevere_ghetto",
+    "tipo": "walk",
+    "titolo": {
+      "it": "Tevere e Ghetto",
+      "en": "The Tiber and the Ghetto"
+    },
+    "tappe": [
+      {
+        "it": "Circo Massimo",
+        "en": "Circus Maximus"
+      },
+      {
+        "it": "Bocca della Verità",
+        "en": "Bocca della Verità"
+      },
+      {
+        "it": "Teatro di Marcello",
+        "en": "Theatre of Marcellus"
+      },
+      {
+        "it": "Ghetto e Portico d'Ottavia",
+        "en": "The Ghetto and the Portico of Octavia"
+      }
+    ]
+  },
+  {
+    "id": "campo_marzio",
+    "tipo": "walk",
+    "titolo": {
+      "it": "Campo Marzio barocco",
+      "en": "Baroque Campo Marzio"
+    },
+    "tappe": [
+      {
+        "it": "Ponte Sisto",
+        "en": "Ponte Sisto"
+      },
+      {
+        "it": "Campo de' Fiori",
+        "en": "Campo de' Fiori"
+      },
+      {
+        "it": "Piazza Navona",
+        "en": "Piazza Navona"
+      },
+      {
+        "it": "Pantheon",
+        "en": "Pantheon"
+      },
+      {
+        "it": "Piazza di Pietra",
+        "en": "Piazza di Pietra"
+      },
+      {
+        "it": "Santa Maria in Via",
+        "en": "Santa Maria in Via"
+      },
+      {
+        "it": "Fontana di Trevi",
+        "en": "Trevi Fountain"
+      },
+      {
+        "it": "Vicus Caprarius – La Città dell’Acqua",
+        "en": "Vicus Caprarius – The City of Water"
+      }
+    ]
+  },
+  {
+    "id": "tridente",
+    "tipo": "walk",
+    "titolo": {
+      "it": "Il Tridente",
+      "en": "The Trident"
+    },
+    "tappe": [
+      {
+        "it": "Piazza di Spagna",
+        "en": "Piazza di Spagna"
+      },
+      {
+        "it": "Ara Pacis",
+        "en": "Ara Pacis"
+      },
+      {
+        "it": "Piazza del Popolo",
+        "en": "Piazza del Popolo"
+      }
+    ]
+  },
+  {
+    "id": "trastevere",
+    "tipo": "walk",
+    "titolo": {
+      "it": "Trastevere",
+      "en": "Trastevere"
+    },
+    "tappe": [
+      {
+        "it": "basilica di Santa Cecilia in Trastevere",
+        "en": "Santa Cecilia in Trastevere"
+      },
+      {
+        "it": "Basilica di San Crisogono",
+        "en": "Basilica of San Crisogono"
+      },
+      {
+        "it": "Basilica di Santa Maria in Trastevere",
+        "en": "Santa Maria in Trastevere"
+      },
+      {
+        "it": "Piazza Trilussa",
+        "en": "Piazza Trilussa"
+      }
+    ]
+  },
+  {
+    "id": "gianicolo_vaticano",
+    "tipo": "walk",
+    "titolo": {
+      "it": "Dal Gianicolo a San Pietro",
+      "en": "From the Janiculum to Saint Peter’s"
+    },
+    "tappe": [
+      {
+        "it": "Villa Farnesina",
+        "en": "Villa Farnesina"
+      },
+      {
+        "it": "San Pietro in Montorio",
+        "en": "San Pietro in Montorio"
+      },
+      {
+        "it": "Mausoleo Ossario Garibaldino",
+        "en": "Garibaldian Ossuary Mausoleum"
+      },
+      {
+        "it": "Fontana dell’Acqua Paola (Fontanone)",
+        "en": "Acqua Paola Fountain (Fontanone)"
+      },
+      {
+        "it": "Gianicolo",
+        "en": "The Janiculum"
+      },
+      {
+        "it": "Santo Spirito in Sassia",
+        "en": "Santo Spirito in Sassia"
+      },
+      {
+        "it": "Castel Sant’Angelo",
+        "en": "Castel Sant’Angelo"
+      },
+      {
+        "it": "San Pietro",
+        "en": "Saint Peter’s"
+      }
+    ]
+  }
+]

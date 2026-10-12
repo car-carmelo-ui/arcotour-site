@@ -1,0 +1,30 @@
+{
+  "nome": "ArcoTour",
+  "base_url": "https://car-carmelo-ui.github.io/arcotour-site/",
+  "aggiornato": "2026-10-12",
+  "app": {
+    "stato": "prossimamente",
+    "app_store_url": ""
+  },
+  "venditore": {
+    "nome": "DA_COMPLETARE:nome-o-ragione-sociale",
+    "indirizzo": "DA_COMPLETARE:citta-e-paese-o-sede",
+    "email": "DA_COMPLETARE:email-per-assistenza-e-privacy",
+    "partita_iva": ""
+  },
+  "revisione_legale": "da_fare",
+  "pass": [
+    {"id": "pass24h", "ore": 24,
+     "nome": {"it": "Roma 24 ore", "en": "Rome 24 hours"},
+     "durata": {"it": "24 ore", "en": "24 hours"},
+     "prezzo": {"it": "€2,99", "en": "€2.99"}},
+    {"id": "pass72h", "ore": 72,
+     "nome": {"it": "Roma 72 ore", "en": "Rome 72 hours"},
+     "durata": {"it": "72 ore", "en": "72 hours"},
+     "prezzo": {"it": "€4,99", "en": "€4.99"}},
+    {"id": "pass10d", "ore": 240,
+     "nome": {"it": "Roma Completa", "en": "Rome Complete"},
+     "durata": {"it": "10 giorni (240 ore)", "en": "10 days (240 hours)"},
+     "prezzo": {"it": "€7,99", "en": "€7.99"}}
+  ]
+}

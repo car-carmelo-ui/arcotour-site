@@ -1,0 +1,13 @@
+{
+  "importato_il": "2026-10-12",
+  "progetto_app": "ArcoTour (privato)",
+  "commit_app": "47a77767a30728578610887c75e3d712bb2970e9",
+  "file_letti": [
+    "app/assets/data/roma.json",
+    "content/legale/privacy.yaml",
+    "content/roma/pois/<scheda>.yaml (7 foto)",
+    "content/roma/images/<scheda>_1280.jpg",
+    "tools/genera_icona.py (disegno dell'icona)",
+    "app/assets/google_fonts/*"
+  ]
+}

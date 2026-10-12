@@ -1,0 +1,114 @@
+[
+  {
+    "id": "colosseo",
+    "percorso": null,
+    "larghezza": 1280,
+    "altezza": 897,
+    "alt": {
+      "it": "Il Colosseo visto dall'esterno.",
+      "en": "The Colosseum seen from outside."
+    },
+    "file_commons": "Colosseo 2020.jpg",
+    "autore": "FeaturedPics",
+    "licenza": "CC BY-SA 4.0",
+    "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "fonte_url": "https://commons.wikimedia.org/wiki/File:Colosseo_2020.jpg",
+    "credito_app": "Foto: FeaturedPics, CC BY-SA 4.0, via Wikimedia Commons"
+  },
+  {
+    "id": "arco_costantino",
+    "percorso": "roma_antica",
+    "larghezza": 1280,
+    "altezza": 1080,
+    "alt": {
+      "it": "L'Arco di Costantino.",
+      "en": "The Arch of Constantine."
+    },
+    "file_commons": "Arch of Constantine (Rome) - South side, from Via triumphalis.jpg",
+    "autore": "NikonZ7II (Paris Orlando)",
+    "licenza": "CC BY-SA 4.0",
+    "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "fonte_url": "https://commons.wikimedia.org/wiki/File:Arch_of_Constantine_(Rome)_-_South_side,_from_Via_triumphalis.jpg",
+    "credito_app": "Foto: NikonZ7II (Paris Orlando), CC BY-SA 4.0, via Wikimedia Commons"
+  },
+  {
+    "id": "campidoglio",
+    "percorso": "traiano_campidoglio",
+    "larghezza": 1280,
+    "altezza": 853,
+    "alt": {
+      "it": "Piazza del Campidoglio, con la pavimentazione a stella e i palazzi che la circondano.",
+      "en": "Piazza del Campidoglio, with its star-patterned paving and the palaces around it."
+    },
+    "file_commons": "Piazza del Campidoglio 2015.jpg",
+    "autore": "Kameister",
+    "licenza": "CC BY-SA 4.0",
+    "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "fonte_url": "https://commons.wikimedia.org/wiki/File:Piazza_del_Campidoglio_2015.jpg",
+    "credito_app": "Foto: Kameister, CC BY-SA 4.0, via Wikimedia Commons"
+  },
+  {
+    "id": "fontana_di_trevi",
+    "percorso": "campo_marzio",
+    "larghezza": 1280,
+    "altezza": 850,
+    "alt": {
+      "it": "La Fontana di Trevi.",
+      "en": "The Trevi Fountain."
+    },
+    "file_commons": "Trevi Fountain, Rome, Italy 2 - May 2007.jpg",
+    "autore": "David Iliff (Diliff)",
+    "licenza": "CC BY 3.0",
+    "licenza_url": "https://creativecommons.org/licenses/by/3.0/",
+    "fonte_url": "https://commons.wikimedia.org/wiki/File:Trevi_Fountain,_Rome,_Italy_2_-_May_2007.jpg",
+    "credito_app": "Foto: David Iliff (Diliff), CC BY 3.0, via Wikimedia Commons"
+  },
+  {
+    "id": "piazza_spagna",
+    "percorso": "tridente",
+    "larghezza": 1280,
+    "altezza": 1149,
+    "alt": {
+      "it": "La Barcaccia in Piazza di Spagna, con la scalinata di Trinità dei Monti sullo sfondo.",
+      "en": "The Barcaccia fountain in Piazza di Spagna, with the Trinità dei Monti steps behind it."
+    },
+    "file_commons": "Barcaccia e scalinata.jpg",
+    "autore": "WikiRomaWiki",
+    "licenza": "CC BY-SA 4.0",
+    "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "fonte_url": "https://commons.wikimedia.org/wiki/File:Barcaccia_e_scalinata.jpg",
+    "credito_app": "Foto: WikiRomaWiki, CC BY-SA 4.0, via Wikimedia Commons"
+  },
+  {
+    "id": "castel_sant_angelo",
+    "percorso": "gianicolo_vaticano",
+    "larghezza": 1280,
+    "altezza": 853,
+    "alt": {
+      "it": "Castel Sant'Angelo.",
+      "en": "Castel Sant'Angelo."
+    },
+    "file_commons": "Castel Sant'Angelo (Rome) - Exterior.jpg",
+    "autore": "John Samuel",
+    "licenza": "CC BY-SA 4.0",
+    "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "fonte_url": "https://commons.wikimedia.org/wiki/File:Castel_Sant'Angelo_(Rome)_-_Exterior.jpg",
+    "credito_app": "Foto: John Samuel, CC BY-SA 4.0, via Wikimedia Commons"
+  },
+  {
+    "id": "piazza_trilussa",
+    "percorso": "trastevere",
+    "larghezza": 1280,
+    "altezza": 960,
+    "alt": {
+      "it": "Piazza Trilussa a Trastevere, con la fontana e la scalinata.",
+      "en": "Piazza Trilussa in Trastevere, with its fountain and steps."
+    },
+    "file_commons": "Trastevere - Fontanone dei cento preti a piazza Trilussa 1527.JPG",
+    "autore": "Lalupa",
+    "licenza": "Public domain",
+    "licenza_url": null,
+    "fonte_url": "https://commons.wikimedia.org/wiki/File:Trastevere_-_Fontanone_dei_cento_preti_a_piazza_Trilussa_1527.JPG",
+    "credito_app": "Foto: Lalupa, pubblico dominio, via Wikimedia Commons"
+  }
+]

@@ -1,337 +1,241 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f6f0e5">
-  <meta name="description" content="ArcoTour: itinerari culturali, mappe e audioguide per scoprire Roma in italiano e inglese.">
-  <title>ArcoTour | Discover the story of every place</title>
-  <style>
-    :root {
-      --cream: #f6f0e5;
-      --white: #fffdf9;
-      --ink: #29231e;
-      --terracotta: #b64b29;
-      --gold: #d9a441;
-      --line: #ddd0bd;
-    }
-
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      background: var(--cream);
-      color: var(--ink);
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.65;
-    }
-
-    a { color: inherit; }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      padding: 22px 7%;
-      background: var(--white);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .brand {
-      font-family: Georgia, serif;
-      font-size: 27px;
-      font-weight: bold;
-      letter-spacing: .02em;
-      text-decoration: none;
-    }
-
-    .brand span { color: var(--terracotta); }
-
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      align-items: center;
-      font-size: 14px;
-    }
-
-    nav a { text-decoration: none; }
-
-    nav a:hover, footer a:hover {
-      color: var(--terracotta);
-    }
-
-    .language {
-      border: 1px solid var(--line);
-      background: var(--white);
-      padding: 7px 12px;
-      border-radius: 30px;
-      cursor: pointer;
-      color: var(--ink);
-    }
-
-    .hero {
-      padding: 105px 7% 115px;
-      text-align: center;
-      background: linear-gradient(160deg, #f8f1e5, #ebddc7);
-    }
-
-    .symbol {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      width: 100px;
-      height: 100px;
-      border: 3px solid var(--terracotta);
-      border-radius: 32px;
-      font-family: Georgia, serif;
-      font-size: 58px;
-      color: var(--terracotta);
-      margin-bottom: 26px;
-    }
-
-    .eyebrow {
-      color: var(--terracotta);
-      text-transform: uppercase;
-      letter-spacing: .2em;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    h1, h2, h3 {
-      font-family: Georgia, "Times New Roman", serif;
-      line-height: 1.2;
-    }
-
-    h1 {
-      font-size: clamp(42px, 7vw, 76px);
-      max-width: 900px;
-      margin: 18px auto;
-    }
-
-    .hero p {
-      max-width: 650px;
-      margin: 22px auto;
-      font-size: 19px;
-    }
-
-    .button {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 13px 30px;
-      background: var(--terracotta);
-      color: white;
-      border-radius: 35px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .button:hover { background: #913b21; }
-
-    section {
-      max-width: 1120px;
-      margin: auto;
-      padding: 80px 7%;
-    }
-
-    section h2 {
-      font-size: clamp(30px, 4vw, 46px);
-      margin: 12px 0 20px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-      margin-top: 35px;
-    }
-
-    .card {
-      background: var(--white);
-      padding: 32px;
-      border: 1px solid var(--line);
-      border-radius: 22px;
-    }
-
-    .card .number {
-      color: var(--terracotta);
-      font-family: Georgia, serif;
-      font-size: 34px;
-    }
-
-    .card h3 { font-size: 23px; }
-
-    .highlight {
-      max-width: none;
-      background: #eadac3;
-      text-align: center;
-    }
-
-    .highlight > div {
-      max-width: 760px;
-      margin: auto;
-    }
-
-    footer {
-      background: #2c2621;
-      color: #f5eadb;
-      padding: 42px 7%;
-      text-align: center;
-      font-size: 14px;
-    }
-
-    footer a {
-      display: inline-block;
-      margin: 8px 12px;
-      color: inherit;
-      text-decoration: none;
-    }
-
-    [data-lang="en"] { display: none; }
-
-    body.english [data-lang="it"] { display: none; }
-    body.english [data-lang="en"] { display: revert; }
-
-    @media (max-width: 720px) {
-      header { flex-direction: column; }
-      nav { justify-content: center; }
-      .hero { padding: 75px 7%; }
-      .cards { grid-template-columns: 1fr; }
-      section { padding: 60px 7%; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ArcoTour · Audioguida a piedi per Roma</title>
+<meta name="description" content="ArcoTour è l’audioguida per scoprire Roma camminando: dieci percorsi a piedi e in metro, con racconti in italiano e inglese che partono da soli a ogni tappa.">
+<meta name="theme-color" content="#F5F0E6">
+<meta name="color-scheme" content="light">
+<link rel="canonical" href="https://car-carmelo-ui.github.io/arcotour-site/">
+<link rel="alternate" hreflang="it" href="https://car-carmelo-ui.github.io/arcotour-site/">
+<link rel="alternate" hreflang="en" href="https://car-carmelo-ui.github.io/arcotour-site/en/">
+<link rel="alternate" hreflang="x-default" href="https://car-carmelo-ui.github.io/arcotour-site/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ArcoTour">
+<meta property="og:title" content="ArcoTour · Audioguida a piedi per Roma">
+<meta property="og:description" content="ArcoTour è l’audioguida per scoprire Roma camminando: dieci percorsi a piedi e in metro, con racconti in italiano e inglese che partono da soli a ogni tappa.">
+<meta property="og:url" content="https://car-carmelo-ui.github.io/arcotour-site/">
+<meta property="og:locale" content="it_IT">
+<meta property="og:locale:alternate" content="en_GB">
+<meta property="og:image" content="https://car-carmelo-ui.github.io/arcotour-site/assets/img/anteprima-it.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ArcoTour, audioguida a piedi">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/PlayfairDisplay-Bold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fonts/inter-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<script>document.documentElement.className='js'</script>
+<script src="assets/js/site.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://car-carmelo-ui.github.io/arcotour-site/#sito","url":"https://car-carmelo-ui.github.io/arcotour-site/","name":"ArcoTour","inLanguage":"it"},{"@type":"MobileApplication","name":"ArcoTour","operatingSystem":"iOS 15 or later","applicationCategory":"TravelApplication","description":"Audioguida a piedi per Roma: percorsi a piedi e in metro, racconti in italiano e inglese che partono da soli a ogni tappa.","inLanguage":["it","en"],"url":"https://car-carmelo-ui.github.io/arcotour-site/"}]}</script>
 </head>
 <body>
-
-<header>
-  <a class="brand" href="index.html">ARCO<span>TOUR</span></a>
-  <nav aria-label="Main navigation">
-    <a href="#discover">
-      <span data-lang="it">Scopri</span>
-      <span data-lang="en">Discover</span>
-    </a>
-    <a href="#experience">
-      <span data-lang="it">L'esperienza</span>
-      <span data-lang="en">Experience</span>
-    </a>
-    <a href="support.html">
-      <span data-lang="it">Assistenza</span>
-      <span data-lang="en">Support</span>
-    </a>
-    <button class="language" type="button" onclick="toggleLanguage()" aria-label="Change language">
-      IT / EN
-    </button>
-  </nav>
+<a class="salta" href="#contenuto">Vai al contenuto</a>
+<header class="intestazione">
+<div class="contenitore">
+<a class="marchio" href="index.html" aria-label="ArcoTour, pagina iniziale"><img src="assets/img/icona-96.png" width="40" height="40" alt=""><span>ArcoTour</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principale">Menu</button>
+<nav class="nav" id="menu-principale" aria-label="Menu principale"><ul><li><a href="index.html#roma">Percorsi</a></li><li><a href="index.html#audioguide">Audioguide</a></li><li><a href="index.html#mappe">Mappe e mezzi</a></li><li><a href="index.html#pass">Pass</a></li><li><a href="support.html">Assistenza</a></li></ul></nav>
+<div class="lingua" role="group" aria-label="Lingua del sito"><span lang="it" aria-label="Italiano" aria-current="true">IT</span><a lang="en" hreflang="en" aria-label="English" href="en/index.html">EN</a></div>
+</div>
 </header>
-
-<main>
-  <div class="hero">
-    <div class="symbol" aria-hidden="true">A</div>
-    <div class="eyebrow">ArcoTour · Cultural Travel</div>
-
-    <div data-lang="it">
-      <h1>Ogni luogo ha una storia da raccontare.</h1>
-      <p>Scopri Roma attraverso itinerari culturali, mappe e audioguide. Un viaggio tra arte, storia e luoghi straordinari, al tuo ritmo.</p>
-      <a class="button" href="#discover">Scopri ArcoTour</a>
-    </div>
-
-    <div data-lang="en">
-      <h1>Every place has a story to tell.</h1>
-      <p>Discover Rome through cultural itineraries, maps and audio guides. Explore art, history and remarkable places at your own pace.</p>
-      <a class="button" href="#discover">Discover ArcoTour</a>
-    </div>
-  </div>
-
-  <section id="discover">
-    <div data-lang="it">
-      <div class="eyebrow">La città eterna</div>
-      <h2>Roma, strato dopo strato.</h2>
-      <p>Dal mondo antico alle grandi basiliche, dalle piazze rinascimentali ai capolavori del Barocco: ArcoTour ti accompagna alla scoperta del patrimonio culturale di Roma.</p>
-    </div>
-    <div data-lang="en">
-      <div class="eyebrow">The Eternal City</div>
-      <h2>Rome, layer by layer.</h2>
-      <p>From ancient Rome to its magnificent basilicas, Renaissance squares and Baroque masterpieces, ArcoTour helps you explore the city's cultural heritage.</p>
-    </div>
-  </section>
-
-  <section id="experience">
-    <div data-lang="it">
-      <div class="eyebrow">La tua esperienza</div>
-      <h2>Esplora. Ascolta. Scopri.</h2>
-    </div>
-    <div data-lang="en">
-      <div class="eyebrow">Your experience</div>
-      <h2>Explore. Listen. Discover.</h2>
-    </div>
-
-    <div class="cards">
-      <article class="card">
-        <div class="number">01</div>
-        <h3>
-          <span data-lang="it">Itinerari</span>
-          <span data-lang="en">Itineraries</span>
-        </h3>
-        <p data-lang="it">Percorsi organizzati per conoscere monumenti, piazze, chiese e luoghi di interesse.</p>
-        <p data-lang="en">Curated routes through monuments, squares, churches and cultural landmarks.</p>
-      </article>
-
-      <article class="card">
-        <div class="number">02</div>
-        <h3>
-          <span data-lang="it">Audioguide</span>
-          <span data-lang="en">Audio guides</span>
-        </h3>
-        <p data-lang="it">Racconti e approfondimenti culturali disponibili in italiano e inglese.</p>
-        <p data-lang="en">Cultural stories and insights available in Italian and English.</p>
-      </article>
-
-      <article class="card">
-        <div class="number">03</div>
-        <h3>
-          <span data-lang="it">Mappe</span>
-          <span data-lang="en">Maps</span>
-        </h3>
-        <p data-lang="it">Strumenti di orientamento per organizzare la visita secondo i tuoi interessi.</p>
-        <p data-lang="en">Navigation tools to plan your visit around your own interests.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="highlight">
-    <div data-lang="it">
-      <div class="eyebrow">ArcoTour Premium</div>
-      <h2>Più tempo per scoprire.</h2>
-      <p>Scegli tra pass di 24 ore, 72 ore o 10 giorni (240 ore). Pagamento unico, senza rinnovo automatico. Le opzioni di acquisto sono disponibili nell'app quando abilitate.</p>
-    </div>
-    <div data-lang="en">
-      <div class="eyebrow">ArcoTour Premium</div>
-      <h2>More time to discover.</h2>
-      <p>Choose a 24-hour, 72-hour or 10-day (240-hour) pass. One-time payment, no automatic renewal. Purchase options are available in the app when enabled.</p>
-    </div>
-  </section>
+<main id="contenuto">
+<section class="eroe" aria-labelledby="titolo-eroe">
+<div class="contenitore">
+<div>
+<p class="occhiello">Audioguida a piedi · Roma</p>
+<h1 id="titolo-eroe">Roma a piedi, con la voce giusta al posto giusto.</h1>
+<p class="lead">ArcoTour è l’audioguida per scoprire il centro storico di Roma camminando. Scegli un percorso e cammina: quando arrivi a una tappa, il racconto parte da solo, anche con il telefono in tasca e lo schermo spento.</p>
+<div class="pulsanti"><a class="pulsante pulsante-primario" href="#roma">Scopri i percorsi</a><a class="pulsante pulsante-secondario" href="#come-funziona">Come funziona</a></div>
+<p class="disponibilita">Prossimamente su App Store · solo iPhone</p>
+</div>
+<figure class="arco">
+<div class="arco-cornice">
+<img src="assets/img/foto/colosseo-1280.jpg" srcset="assets/img/foto/colosseo-640.jpg 640w, assets/img/foto/colosseo-1280.jpg 1280w" sizes="(min-width: 60rem) 26rem, 86vw" width="1280" height="897" alt="Il Colosseo visto dall’esterno." fetchpriority="high" decoding="async">
+</div>
+<figcaption class="credito">Foto: FeaturedPics, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:Colosseo_2020.jpg">Wikimedia Commons</a></figcaption>
+</figure>
+</div>
+</section>
+<section class="fatti sezione-avorio" aria-label="ArcoTour"><div class="contenitore"><ul><li><span class="valore">10</span><span class="etichetta">percorsi nel centro di Roma</span></li><li><span class="valore">2</span><span class="etichetta">lingue: italiano e inglese</span></li><li><span class="valore">0</span><span class="etichetta">account da creare</span></li></ul></div></section>
+<section id="come-funziona" aria-labelledby="titolo-come">
+<div class="contenitore">
+<div class="testata">
+<p class="occhiello">Come funziona</p>
+<h2 id="titolo-come">Scegli, cammina, ascolta.</h2>
+</div>
+<ol class="passi"><li class="passo"><h3>Scegli un percorso</h3><p>Dieci percorsi nel centro di Roma, a piedi o in metro: dal Colosseo al Gianicolo, da Trastevere al Tridente.</p></li><li class="passo"><h3>Premi «Inizia il tour» e cammina</h3><p>Con il telefono in tasca. Per far partire i racconti da soli serve consentire la posizione, anche con l’app in secondo piano.</p></li><li class="passo"><h3>Ascolta a ogni tappa</h3><p>Quando arrivi, la voce parte da sola, in italiano o in inglese. Se il GPS non basta, tocchi il numero della tappa.</p></li></ol>
+</div>
+</section>
+<section id="roma" class="sezione-avorio" aria-labelledby="titolo-roma">
+<div class="contenitore">
+<div class="testata">
+<p class="occhiello">Roma, la prima destinazione</p>
+<h2 id="titolo-roma">Dieci percorsi per scoprire il centro storico.</h2>
+<p class="lead">Dall’antica Roma ai palazzi barocchi, da Trastevere al Gianicolo: percorsi a piedi e in metro, con un racconto per ogni tappa.</p>
+</div>
+<div class="griglia griglia-percorsi">
+<article class="scheda">
+<img src="assets/img/foto/arco_costantino-1280.jpg" srcset="assets/img/foto/arco_costantino-640.jpg 640w, assets/img/foto/arco_costantino-1280.jpg 1280w" sizes="(min-width: 60rem) 22rem, (min-width: 40rem) 45vw, 92vw" width="1280" height="1080" alt="L’Arco di Costantino." loading="lazy" decoding="async">
+<div class="scheda-corpo">
+<ul class="meta"><li>A piedi</li><li>4 tappe</li></ul>
+<h3>Colosseo e Fori</h3>
+<p class="tappe-elenco">Colosseo · Basilica di Santa Francesca Romana · Arco di Costantino · Fori Imperiali</p>
+<p class="credito">Foto: NikonZ7II (Paris Orlando), <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:Arch_of_Constantine_(Rome)_-_South_side,_from_Via_triumphalis.jpg">Wikimedia Commons</a></p>
+</div>
+</article>
+<article class="scheda">
+<img src="assets/img/foto/campidoglio-1280.jpg" srcset="assets/img/foto/campidoglio-640.jpg 640w, assets/img/foto/campidoglio-1280.jpg 1280w" sizes="(min-width: 60rem) 22rem, (min-width: 40rem) 45vw, 92vw" width="1280" height="853" alt="Piazza del Campidoglio, con la pavimentazione a stella e i palazzi che la circondano." loading="lazy" decoding="async">
+<div class="scheda-corpo">
+<ul class="meta"><li>A piedi</li><li>5 tappe</li></ul>
+<h3>Dalla Colonna Traiana al Campidoglio</h3>
+<p class="tappe-elenco">Colonna Traiana · Giardino Grande di Palazzo Venezia · Vittoriano · Santa Maria in Aracoeli · Piazza del Campidoglio</p>
+<p class="credito">Foto: Kameister, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:Piazza_del_Campidoglio_2015.jpg">Wikimedia Commons</a></p>
+</div>
+</article>
+<article class="scheda">
+<img src="assets/img/foto/fontana_di_trevi-1280.jpg" srcset="assets/img/foto/fontana_di_trevi-640.jpg 640w, assets/img/foto/fontana_di_trevi-1280.jpg 1280w" sizes="(min-width: 60rem) 22rem, (min-width: 40rem) 45vw, 92vw" width="1280" height="850" alt="La Fontana di Trevi." loading="lazy" decoding="async">
+<div class="scheda-corpo">
+<ul class="meta"><li>A piedi</li><li>8 tappe</li></ul>
+<h3>Campo Marzio barocco</h3>
+<p class="tappe-elenco">Ponte Sisto · Campo de’ Fiori · Piazza Navona · Pantheon · e altre 4 tappe</p>
+<p class="credito">Foto: David Iliff (Diliff), <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:Trevi_Fountain,_Rome,_Italy_2_-_May_2007.jpg">Wikimedia Commons</a></p>
+</div>
+</article>
+<article class="scheda">
+<img src="assets/img/foto/piazza_spagna-1280.jpg" srcset="assets/img/foto/piazza_spagna-640.jpg 640w, assets/img/foto/piazza_spagna-1280.jpg 1280w" sizes="(min-width: 60rem) 22rem, (min-width: 40rem) 45vw, 92vw" width="1280" height="1149" alt="La Barcaccia in Piazza di Spagna, con la scalinata di Trinità dei Monti sullo sfondo." loading="lazy" decoding="async">
+<div class="scheda-corpo">
+<ul class="meta"><li>A piedi</li><li>3 tappe</li></ul>
+<h3>Il Tridente</h3>
+<p class="tappe-elenco">Piazza di Spagna · Ara Pacis · Piazza del Popolo</p>
+<p class="credito">Foto: WikiRomaWiki, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:Barcaccia_e_scalinata.jpg">Wikimedia Commons</a></p>
+</div>
+</article>
+<article class="scheda">
+<img src="assets/img/foto/piazza_trilussa-1280.jpg" srcset="assets/img/foto/piazza_trilussa-640.jpg 640w, assets/img/foto/piazza_trilussa-1280.jpg 1280w" sizes="(min-width: 60rem) 22rem, (min-width: 40rem) 45vw, 92vw" width="1280" height="960" alt="Piazza Trilussa a Trastevere, con la fontana e la scalinata." loading="lazy" decoding="async">
+<div class="scheda-corpo">
+<ul class="meta"><li>A piedi</li><li>4 tappe</li></ul>
+<h3>Trastevere</h3>
+<p class="tappe-elenco">Basilica di Santa Cecilia in Trastevere · Basilica di San Crisogono · Basilica di Santa Maria in Trastevere · Piazza Trilussa</p>
+<p class="credito">Foto: Lalupa, pubblico dominio, via <a href="https://commons.wikimedia.org/wiki/File:Trastevere_-_Fontanone_dei_cento_preti_a_piazza_Trilussa_1527.JPG">Wikimedia Commons</a></p>
+</div>
+</article>
+<article class="scheda">
+<img src="assets/img/foto/castel_sant_angelo-1280.jpg" srcset="assets/img/foto/castel_sant_angelo-640.jpg 640w, assets/img/foto/castel_sant_angelo-1280.jpg 1280w" sizes="(min-width: 60rem) 22rem, (min-width: 40rem) 45vw, 92vw" width="1280" height="853" alt="Castel Sant’Angelo." loading="lazy" decoding="async">
+<div class="scheda-corpo">
+<ul class="meta"><li>A piedi</li><li>8 tappe</li></ul>
+<h3>Dal Gianicolo a San Pietro</h3>
+<p class="tappe-elenco">Villa Farnesina · San Pietro in Montorio · Mausoleo Ossario Garibaldino · Fontana dell’Acqua Paola (Fontanone) · e altre 4 tappe</p>
+<p class="credito">Foto: John Samuel, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:Castel_Sant&#x27;Angelo_(Rome)_-_Exterior.jpg">Wikimedia Commons</a></p>
+</div>
+</article>
+</div>
+<h3 class="sottotitolo-sezione">Tutti i percorsi</h3>
+<ol class="elenco-percorsi"><li><span><span class="nome">Da Tiburtina al Colosseo</span><span class="dettaglio">In metro · 4 tappe</span></span></li><li><span><span class="nome">Da Termini al Circo Massimo</span><span class="dettaglio">In metro · 3 tappe</span></span></li><li><span><span class="nome">Colosseo e Fori</span><span class="dettaglio">A piedi · 4 tappe</span></span></li><li><span><span class="nome">Termini, Esquilino e Monti</span><span class="dettaglio">A piedi · 3 tappe</span></span></li><li><span><span class="nome">Dalla Colonna Traiana al Campidoglio</span><span class="dettaglio">A piedi · 5 tappe</span></span></li><li><span><span class="nome">Tevere e Ghetto</span><span class="dettaglio">A piedi · 4 tappe</span></span></li><li><span><span class="nome">Campo Marzio barocco</span><span class="dettaglio">A piedi · 8 tappe</span></span></li><li><span><span class="nome">Il Tridente</span><span class="dettaglio">A piedi · 3 tappe</span></span></li><li><span><span class="nome">Trastevere</span><span class="dettaglio">A piedi · 4 tappe</span></span></li><li><span><span class="nome">Dal Gianicolo a San Pietro</span><span class="dettaglio">A piedi · 8 tappe</span></span></li></ol>
+<p class="nota nota-sotto">Nell’app i percorsi si possono combinare con deviazioni facoltative e dettagli lungo il cammino.</p>
+</div>
+</section>
+<section id="audioguide" aria-labelledby="titolo-audio">
+<div class="contenitore due-colonne">
+<div>
+<p class="occhiello">Audioguide</p>
+<h2 id="titolo-audio">Racconti che partono da soli.</h2>
+<p>A ogni tappa il racconto parte quando arrivi, anche con il telefono in tasca e lo schermo spento.</p>
+<p>Le voci sono sintetiche, generate con l’intelligenza artificiale. I testi non nascono dal nulla: partono da fatti con una fonte indicata e vengono approvati prima di diventare audio.</p>
+<ul class="punti"><li>In italiano e in inglese.</li><li>Racconti, testi e foto sono dentro l’app: funzionano anche senza internet.</li><li>Ascolta con attenzione a ciò che ti circonda e rispetta semafori e traffico.</li></ul>
+</div>
+<div class="citazione"><p>Prima i fatti, poi il racconto.</p><p>È la regola con cui nasce ogni testo di ArcoTour.</p></div>
+</div>
+</section>
+<section id="mappe" class="sezione-sabbia" aria-labelledby="titolo-mappe">
+<div class="contenitore">
+<div class="testata">
+<p class="occhiello">Mappe e mezzi pubblici</p>
+<h2 id="titolo-mappe">Dall’arrivo in città alla fine del tour, mezzi compresi.</h2>
+<p class="lead">ArcoTour ti accompagna anche negli spostamenti: sai dove sono le fermate vicine e come arrivarci a piedi.</p>
+</div>
+<div class="griglia griglia-3"><article class="scheda"><div class="scheda-corpo"><h3>Mezzi</h3><p>La scheda Mezzi mostra le fermate dei mezzi pubblici vicine e le linee, con il percorso di ogni linea.</p></div></article><article class="scheda"><div class="scheda-corpo"><h3>Accompagnami</h3><p>Ti guida a piedi fino alla fermata scelta.</p></div></article><article class="scheda"><div class="scheda-corpo"><h3>Il tuo tour</h3><p>Scegli sulla mappa i luoghi che ti interessano: l’app li mette nell’ordine che fa camminare di meno.</p></div></article></div>
+<p class="nota nota-sotto">Le mappe sono di OpenStreetMap e per mostrarle serve internet.</p>
+</div>
+</section>
+<section id="pass" aria-labelledby="titolo-pass">
+<div class="contenitore">
+<div class="testata">
+<p class="occhiello">Pass Roma</p>
+<h2 id="titolo-pass">L’app è gratuita. I racconti si sbloccano con un pass.</h2>
+<p class="lead">Tre pass temporanei per Roma. Pagamento unico, nessun rinnovo automatico: il tempo conta dal momento dell’acquisto e, alla scadenza, l’accesso ai racconti finisce da solo.</p>
+</div>
+<div class="griglia-pass">
+<article class="pass">
+<h3>Roma 24 ore</h3>
+<p class="durata">Dall’acquisto, per 24 ore</p>
+<p class="prezzo">€2,99</p>
+<p class="contenuto">Tutti i tour di Roma</p>
+<ul class="bollini"><li>Pagamento unico</li><li>Senza rinnovo automatico</li></ul>
+</article>
+<article class="pass">
+<h3>Roma 72 ore</h3>
+<p class="durata">Dall’acquisto, per 72 ore</p>
+<p class="prezzo">€4,99</p>
+<p class="contenuto">Tutti i tour di Roma</p>
+<ul class="bollini"><li>Pagamento unico</li><li>Senza rinnovo automatico</li></ul>
+</article>
+<article class="pass">
+<h3>Roma Completa</h3>
+<p class="durata">Dall’acquisto, per 10 giorni (240 ore)</p>
+<p class="prezzo">€7,99</p>
+<p class="contenuto">Tutti i tour di Roma</p>
+<ul class="bollini"><li>Pagamento unico</li><li>Senza rinnovo automatico</li></ul>
+</article>
+</div>
+<ul class="punti pass-punti"><li>I tre pass sbloccano gli stessi contenuti: cambia solo la durata.</li><li>Le durate non si sommano: con più pass validi vale quello che scade più tardi.</li><li>Restano sempre gratuiti la presentazione di Roma, le schede dei percorsi, la scheda Mezzi e «Accompagnami».</li><li>Un pass di Roma non sblocca altre città.</li></ul>
+<p class="nota nota-sotto">Prezzi indicativi per l’Italia: il prezzo definitivo è quello mostrato dall’App Store al momento dell’acquisto. Gli acquisti saranno disponibili con il lancio dell’app. <a href="support.html#come-funzionano-i-pass">Domande sui pass e sul ripristino degli acquisti</a>.</p>
+</div>
+</section>
+<section id="privacy" class="senza-sopra" aria-labelledby="titolo-privacy">
+<div class="contenitore">
+<div class="fascia-privacy">
+<div>
+<p class="occhiello">Privacy</p>
+<h2 id="titolo-privacy">La tua posizione resta sul tuo telefono.</h2>
+</div>
+<div>
+<p>ArcoTour non ha account, non ha pubblicità e non usa strumenti di analisi o di tracciamento.</p>
+<p>Usa internet solo per due cose: scaricare le mappe da OpenStreetMap e, se compri un pass, parlare con l’App Store di Apple.</p>
+<p><a class="pulsante pulsante-secondario" href="privacy.html">Leggi l’informativa sulla privacy</a></p>
+</div>
+</div>
+</div>
+</section>
+<section id="crediti" class="crediti" aria-labelledby="titolo-crediti">
+<div class="contenitore">
+<h2 id="titolo-crediti">Crediti</h2>
+<p>Le fotografie vengono da Wikimedia Commons e appartengono ai rispettivi autori, che le hanno rilasciate con le licenze indicate qui sotto. Sono ridimensionate per il web.</p>
+<div class="scorri"><table class="tabella-crediti"><thead><tr><th scope="col">Foto</th><th scope="col">Autore</th><th scope="col">Licenza</th><th scope="col">Fonte</th></tr></thead><tbody><tr><td>Colosseo 2020.jpg</td><td>FeaturedPics</td><td><a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></td><td><a href="https://commons.wikimedia.org/wiki/File:Colosseo_2020.jpg">Pagina del file</a></td></tr><tr><td>Arch of Constantine (Rome) - South side, from Via triumphalis.jpg</td><td>NikonZ7II (Paris Orlando)</td><td><a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></td><td><a href="https://commons.wikimedia.org/wiki/File:Arch_of_Constantine_(Rome)_-_South_side,_from_Via_triumphalis.jpg">Pagina del file</a></td></tr><tr><td>Piazza del Campidoglio 2015.jpg</td><td>Kameister</td><td><a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></td><td><a href="https://commons.wikimedia.org/wiki/File:Piazza_del_Campidoglio_2015.jpg">Pagina del file</a></td></tr><tr><td>Trevi Fountain, Rome, Italy 2 - May 2007.jpg</td><td>David Iliff (Diliff)</td><td><a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a></td><td><a href="https://commons.wikimedia.org/wiki/File:Trevi_Fountain,_Rome,_Italy_2_-_May_2007.jpg">Pagina del file</a></td></tr><tr><td>Barcaccia e scalinata.jpg</td><td>WikiRomaWiki</td><td><a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></td><td><a href="https://commons.wikimedia.org/wiki/File:Barcaccia_e_scalinata.jpg">Pagina del file</a></td></tr><tr><td>Castel Sant’Angelo (Rome) - Exterior.jpg</td><td>John Samuel</td><td><a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></td><td><a href="https://commons.wikimedia.org/wiki/File:Castel_Sant&#x27;Angelo_(Rome)_-_Exterior.jpg">Pagina del file</a></td></tr><tr><td>Trastevere - Fontanone dei cento preti a piazza Trilussa 1527.JPG</td><td>Lalupa</td><td>pubblico dominio</td><td><a href="https://commons.wikimedia.org/wiki/File:Trastevere_-_Fontanone_dei_cento_preti_a_piazza_Trilussa_1527.JPG">Pagina del file</a></td></tr></tbody></table></div>
+<p>I dati delle mappe dell’app sono © <a href="https://www.openstreetmap.org/copyright">contributori di OpenStreetMap</a>, disponibili con licenza ODbL.</p>
+<p>Caratteri: Playfair Display e Inter, con licenza SIL Open Font License 1.1 (<a href="assets/fonts/OFL-Inter.txt">Inter</a>, <a href="assets/fonts/OFL-PlayfairDisplay.txt">Playfair Display</a>).</p>
+</div>
+</section>
 </main>
-
-<footer>
-  <strong>ARCOTOUR</strong>
-  <p>Discover the story of every place.</p>
-
-  <a href="support.html">Support / Assistenza</a>
-  <a href="privacy.html">Privacy Policy</a>
-  <a href="terms.html">Terms / Condizioni</a>
-
-  <p>© 2026 ArcoTour. All rights reserved.</p>
+<footer class="piede">
+<div class="contenitore">
+<div class="piede-griglia">
+<div>
+<a class="marchio" href="index.html" aria-label="ArcoTour, pagina iniziale"><img src="assets/img/icona-96.png" width="40" height="40" alt=""><span>ArcoTour</span></a>
+<p class="frase">Dall’arrivo in città alla fine del tour, mezzi compresi.</p>
+</div>
+<nav aria-label="Il sito"><ul><li><a href="support.html">Assistenza</a></li><li><a href="privacy.html">Informativa sulla privacy</a></li><li><a href="terms.html">Condizioni d’uso</a></li><li><a href="index.html#crediti">Crediti</a></li></ul></nav>
+</div>
+<div class="note">
+<p>iPhone e App Store sono marchi di Apple Inc., registrati negli Stati Uniti e in altri Paesi.</p>
+<p>Le fotografie appartengono ai rispettivi autori: crediti e licenze in fondo alla pagina iniziale.</p>
+<p>© 2026 ArcoTour. Tutti i diritti riservati.</p>
+</div>
+</div>
 </footer>
-
-<script>
-  function toggleLanguage() {
-    const english = document.body.classList.toggle("english");
-    document.documentElement.lang = english ? "en" : "it";
-  }
-</script>
-
 </body>
 </html>
