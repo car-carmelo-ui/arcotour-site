@@ -420,3 +420,5 @@ section.senza-sopra { padding-top: 0; }
   a { color: inherit; }
   section { padding-block: 1.5rem; }
 }
+
+mark.conferma-legale { background: #f6e7c1; color: #2b2622; border: 1px dotted #b34a26; border-radius: 4px; padding: 0 .18em; }

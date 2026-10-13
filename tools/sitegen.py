@@ -156,6 +156,7 @@ def inline(ctx: Ctx, testo: str, extra: dict = None) -> str:
             for visibile, url in INDIRIZZI_COLLEGABILI.items():
                 t = re.sub(re.escape(esc(visibile)) + r"(?![\w/-])", lambda m: f'<a href="{esc(url)}">{m.group(0)}</a>', t)
         t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
+        t = re.sub(r"\{!\s*(.+?)\s*\}", r'<mark class="conferma-legale">\1</mark>', t)
         return segnaposti(ctx, t, extra)
 
     for m in re.finditer(r"\[([^\]]+)\]\(([^)\s]+)\)", testo):
