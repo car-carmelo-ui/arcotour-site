@@ -276,10 +276,13 @@ class Sito:
 
     @property
     def bozza(self) -> bool:
-        """Stessa regola del generatore, riscritta qui apposta: le pagine legali sono «in revisione» finché mancano i dati di chi pubblica o la revisione legale."""
+        """Stessa regola del generatore, riscritta qui apposta: le pagine legali sono «in revisione» finché mancano i dati di chi pubblica, la revisione
+        legale non c'è o il testo dell'informativa ha ancora punti da confermare {!…} o dati che mancano {?…}."""
         v = self.dati["venditore"]
         manca = any(not (v.get(k) or "").strip() or v[k].strip().startswith("DA_COMPLETARE") for k in ("nome", "indirizzo", "email"))
-        return self.dati.get("revisione_legale") != "approvata" or manca
+        informativa = json.loads((self.radice / "content" / "informativa_app.json").read_text(encoding="utf-8"))
+        aperti = bool(re.search(r"\{[!?][^{}]+\}", json.dumps(informativa["sezioni"], ensure_ascii=False)))
+        return self.dati.get("revisione_legale") != "approvata" or manca or aperti
 
     def url_atteso(self, file: str) -> str:
         if file == "index.html":
@@ -745,6 +748,40 @@ def controlla_coerenza_lingue(sito: Sito, e: Esito):
             visti[v] = f
 
 
+# ------------------------------------------------------------------------------------ contenuto minimo dell'informativa
+INFORMATIVA_COLLEGAMENTI = {
+    "https://osmfoundation.org/wiki/Privacy_Policy": "l'informativa di OpenStreetMap",
+    "https://www.apple.com/legal/privacy/": "l'informativa di Apple",
+    "https://www.garanteprivacy.it/": "il Garante per la protezione dei dati personali",
+}
+INFORMATIVA_PAROLE = ("tile.openstreetmap.org", "OpenStreetMap", "Apple", "GitHub")
+
+
+def controlla_informativa(sito: Sito, e: Esito):
+    """L'informativa, in italiano e in inglese, dice quello che l'app fa e che Apple e il GDPR chiedono di dire: il collegamento alle
+    informative di OpenStreetMap, di Apple e del Garante, l'indirizzo delle mappe, l'email per scrivere; e i dati «da completare» e i punti
+    «da confermare» sono gli stessi nelle due lingue."""
+    for file in ("privacy.html", "en/privacy.html"):
+        p = sito.pagine.get(file)
+        if not p:
+            continue
+        href = {l["href"] for l in p.a if l["href"]}
+        for url, nome in INFORMATIVA_COLLEGAMENTI.items():
+            if url not in href:
+                e.err(file, f"nell'informativa manca il collegamento a {nome} ({url})")
+        for parola in INFORMATIVA_PAROLE:
+            if parola not in p.testo_visibile:
+                e.err(file, f"nell'informativa non compare «{parola}»")
+        mail = (sito.dati["venditore"].get("email") or "").strip()
+        if mail and not mail.startswith("DA_COMPLETARE") and f"mailto:{mail}" not in href:
+            e.err(file, f"nell'informativa manca il collegamento per scrivere a {mail}")
+    for classe, nome in (("segnaposto", "dati «da completare»"), ("da-confermare", "punti «da confermare»")):
+        n_it = sito.testi.get("privacy.html", "").count(f'class="{classe}"')
+        n_en = sito.testi.get("en/privacy.html", "").count(f'class="{classe}"')
+        if n_it != n_en:
+            e.err("en/privacy.html", f"{nome}: {n_it} in italiano, {n_en} in inglese (devono essere gli stessi)")
+
+
 # ---------------------------------------------------------------------------------------------- file del sito
 def testo_css(radice: Path) -> str:
     return (radice / "assets/css/site.css").read_text(encoding="utf-8")
@@ -915,6 +952,49 @@ def controlla_file_e_dati(sito: Sito, e: Esito):
             e.avv(f"assets/fonts/{f.name}", f"carattere pesante ({f.stat().st_size // 1000} KB)")
 
 
+# ------------------------------------------------------------------------------- la frase sulla posizione (18/10/2026, Carmelo)
+# Le STESSE parole di tools/legale.py del progetto dell'app (FRASE_POSIZIONE): le coordinate GPS restano sul dispositivo, MA per mostrare le mappe
+# OpenStreetMap riceve l'area di mappa richiesta, che può indicare approssimativamente dove si trova l'utente. Nessuna pagina dice in modo
+# generico che «la posizione resta sul telefono» (sembrerebbe in contraddizione con la dichiarazione «posizione approssimativa» ad Apple).
+FRASE_GPS = {"it": "Le coordinate GPS restano sul dispositivo.", "en": "GPS coordinates stay on the device."}
+FRASE_MAPPE = {
+    "it": "Per visualizzare le mappe, OpenStreetMap riceve i dati tecnici della richiesta e l'area di mappa richiesta, che può indicare approssimativamente la zona in cui si trova l'utente.",
+    "en": "To display the maps, OpenStreetMap receives the technical data of the request and the requested map area, which may approximately indicate the area where the user is located.",
+}
+FRASE_POSIZIONE = {l: f"{FRASE_GPS[l]} {FRASE_MAPPE[l]}" for l in LINGUE}
+FORMULE_GENERICHE_SULLA_POSIZIONE = (
+    re.compile(r"\bposizion\w*\s+(?:\w+\s+){0,2}?(?:resta|restano|rimane|rimangono)\b", re.I),     # «la tua posizione resta sul telefono»
+    re.compile(r"\bposizion\w*[.:]\s*(?:resta|rimane)\s+sul", re.I),                               # «serve la posizione. Resta sul tuo telefono»
+    re.compile(r"\bposizione\s+(?:è|viene)\s+elaborata\s+(?:solo|soltanto)", re.I),                 # «la posizione è elaborata solo sul telefono»
+    re.compile(r"\blocation\s+(?:\w+\s+){0,2}?(?:stays|stay|remains|remain)\b", re.I),             # «your location stays on your phone»
+    re.compile(r"\blocation[.:]\s*it\s+(?:stays|remains)\s+on", re.I),                              # «we need your location. It stays on your phone»
+    re.compile(r"\blocation\s+is\s+processed\s+(?:only|solely)", re.I),                            # «location is processed only on the device»
+)
+
+
+def _apostrofi_dritti(testo: str) -> str:
+    return testo.replace("’", "'")
+
+
+def controlla_posizione(sito: Sito, e: Esito):
+    """Nessuna pagina dice in modo generico che la posizione resta sul telefono; l'informativa riporta la frase di Carmelo parola per parola
+    (IT e EN) e la pagina iniziale ha la precisazione su OpenStreetMap."""
+    for file, p in sito.pagine.items():
+        for sorgente in (p.testo_visibile, sito.testi.get(file, "")):
+            trovata = next((m.group(0) for rx in FORMULE_GENERICHE_SULLA_POSIZIONE if (m := rx.search(_apostrofi_dritti(sorgente)))), None)
+            if trovata:
+                e.err(file, f"dice in modo generico che la posizione resta sul telefono («{trovata}»): scrivi «coordinate GPS» e aggiungi la precisazione su OpenStreetMap")
+                break
+    for file, lingua in (("privacy.html", "it"), ("en/privacy.html", "en")):
+        p = sito.pagine.get(file)
+        if p and FRASE_POSIZIONE[lingua] not in _apostrofi_dritti(p.testo_visibile):
+            e.err(file, "nell'informativa manca la frase sulla posizione, parola per parola (coordinate GPS sul dispositivo + area di mappa vista da OpenStreetMap)")
+    for file, lingua in (("index.html", "it"), ("en/index.html", "en")):
+        p = sito.pagine.get(file)
+        if p and FRASE_MAPPE[lingua] not in _apostrofi_dritti(p.testo_visibile):
+            e.err(file, "nella pagina iniziale manca la precisazione su OpenStreetMap (area di mappa richiesta)")
+
+
 def controlla_privacy(sito: Sito, e: Esito):
     """Nessuna email nei file pubblici tranne quella di assistenza scelta in content/site.json (mai quella personale di qualcuno)."""
     v = sito.dati["venditore"]["email"]
@@ -948,6 +1028,8 @@ def controlla_rilascio(sito: Sito, e: Esito):
     for file, p in sito.pagine.items():
         if "segnaposto" in p.classi:
             e.err(file, "ci sono ancora segnaposto «da completare» nella pagina")
+        if "da-confermare" in p.classi:
+            e.err(file, "ci sono ancora punti «da confermare» nella pagina (testi scritti che aspettano la conferma di un legale)")
         if "bozza" in p.classi:
             e.err(file, "c'è ancora l'avviso «versione in revisione»")
         if "noindex" in (p.meta_contenuto("robots") or "") and file != "404.html":
@@ -979,6 +1061,8 @@ def controlla(radice: Path = RADICE, rilascio: bool = False):
     controlla_testo(sito, e)
     controlla_foto(sito, e)
     controlla_coerenza_lingue(sito, e)
+    controlla_informativa(sito, e)
+    controlla_posizione(sito, e)
     if (sito.radice / "assets/css/site.css").is_file():
         controlla_css(sito, e, esterni)
         controlla_contrasti(sito, e)
@@ -989,8 +1073,8 @@ def controlla(radice: Path = RADICE, rilascio: bool = False):
         if file.split("/")[-1] in PAGINE_LEGALI:
             if sito.bozza and "bozza" not in p.classi:
                 e.err(file, "i dati di chi pubblica non sono completi ma la pagina non mostra l'avviso «in revisione»")
-            if not sito.bozza and ("bozza" in p.classi or "segnaposto" in p.classi):
-                e.err(file, "i dati sono completi e la revisione approvata ma la pagina mostra ancora avvisi o segnaposto: rigenera con tools/build_site.py")
+            if not sito.bozza and ("bozza" in p.classi or "segnaposto" in p.classi or "da-confermare" in p.classi):
+                e.err(file, "i dati sono completi e la revisione approvata ma la pagina mostra ancora avvisi o segnaposto (o punti da confermare): rigenera con tools/build_site.py")
     if rilascio:
         controlla_rilascio(sito, e)
     return e, esterni

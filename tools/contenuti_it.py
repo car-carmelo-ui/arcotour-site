@@ -31,12 +31,14 @@ T = {
         "vai_a": "Vai a",
         "bozza_titolo": "Versione in revisione.",
         "bozza_testo": "Questa pagina sarà completata con i dati di chi pubblica l’app e, per le parti legali, controllata da un legale prima del lancio.",
+        "da_completare": "da completare",
+        "legenda_da_confermare": "I punti evidenziati sono già scritti, ma ancora da confermare.",
         "segnaposto": {
             "titolare": "[da completare: nome o ragione sociale]",
             "indirizzo": "[da completare: indirizzo]",
             "email": "[da completare: email di assistenza]",
         },
-        "data_aggiornamento": "12 ottobre 2026",
+        "data_aggiornamento": "13 ottobre 2026",
     },
     "nav": [
         {"id": "roma", "etichetta": "Percorsi", "href": "@index.html#roma"},
@@ -137,9 +139,10 @@ T = {
         },
         "privacy": {
             "occhiello": "Privacy",
-            "h2": "La tua posizione resta sul tuo telefono.",
+            "h2": "Le coordinate GPS restano sul dispositivo.",
             "testo": ("ArcoTour non ha account, non ha pubblicità e non usa strumenti di analisi o di tracciamento.\n\n"
-                      "Usa internet solo per due cose: scaricare le mappe da OpenStreetMap e, se compri un pass, parlare con l’App Store di Apple."),
+                      "Usa internet solo per due cose: scaricare le mappe da OpenStreetMap e, se compri un pass, parlare con l’App Store di Apple. "
+                      "Per visualizzare le mappe, OpenStreetMap riceve i dati tecnici della richiesta e l’area di mappa richiesta, che può indicare approssimativamente la zona in cui si trova l’utente."),
             "link": "Leggi l’informativa sulla privacy",
         },
         "crediti": {
@@ -187,7 +190,8 @@ T = {
                        "Quando la posizione è in uso, iOS mostra un indicatore.")},
                 {"id": "posizione-privacy", "q": "Perché ArcoTour usa la mia posizione? Va a qualcuno?",
                  "a": ("La usa per far partire il racconto quando arrivi a una tappa, per mostrarti le fermate dei mezzi pubblici vicine e per guidarti a piedi fino a una fermata.\n\n"
-                       "Resta sul tuo telefono: non viene salvata, non arriva a noi e non viene condivisa con nessuno. Puoi ritirare il permesso quando vuoi da Impostazioni di iOS. "
+                       "Le coordinate GPS restano sul dispositivo: non vengono salvate, non arrivano a noi e non vengono condivise con nessuno. "
+                       "Per visualizzare le mappe, OpenStreetMap riceve i dati tecnici della richiesta e l’area di mappa richiesta, che può indicare approssimativamente la zona in cui si trova l’utente. Puoi ritirare il permesso quando vuoi da Impostazioni di iOS. "
                        "Dettagli nell’[informativa sulla privacy](@privacy.html).")},
             ]},
             {"id": "mappe-mezzi", "titolo": "Mappe e mezzi pubblici", "domande": [
@@ -245,11 +249,11 @@ T = {
     # ------------------------------------------------------------------------------------------------------ privacy
     "privacy": {
         "titolo": "Informativa sulla privacy · ArcoTour",
-        "descrizione": "Informativa sulla privacy di ArcoTour: la tua posizione resta sul telefono, nessun account, nessuna pubblicità, nessuno strumento di analisi.",
+        "descrizione": "Informativa sulla privacy di ArcoTour: le coordinate GPS restano sul dispositivo, nessun account, nessuna pubblicità, nessuno strumento di analisi.",
         "occhiello": "Privacy",
         "h1": "Informativa sulla privacy",
         "sottotitolo": "L’app ArcoTour (versione 1.0, Roma) e questo sito",
-        "aggiornata_etichetta": "Informativa dell’app aggiornata all’",
+        "aggiornata_etichetta": "Informativa dell’app, ultimo aggiornamento: ",
         "indice": "In questa pagina",
         "parte_app": "L’app",
         "parte_sito": "Questo sito web",
@@ -261,7 +265,8 @@ T = {
                       "per motivi di sicurezza, anche se il visitatore non ha un account GitHub. Noi non usiamo questi dati. Come GitHub li tratta è spiegato nella sua "
                       "[informativa sulla privacy](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement) e nella pagina "
                       "[Che cos’è GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection).\n\n"
-                      "Se ci scrivi un’email, usiamo il tuo indirizzo e il contenuto del messaggio solo per risponderti."),
+                      "Se ci scrivi un’email, usiamo il tuo indirizzo e il contenuto del messaggio solo per risponderti. Per quanto tempo li conserviamo è "
+                      "spiegato nella sezione «I tuoi diritti». La casella di assistenza è ospitata da Google (Gmail)."),
         },
     },
     # --------------------------------------------------------------------------------------------------- condizioni
@@ -314,7 +319,7 @@ T = {
              "testo": ("Nei limiti consentiti dalla legge, ArcoTour è fornito così com’è, senza garanzie che sia sempre disponibile o privo di errori. "
                        "Nulla in queste condizioni esclude o limita diritti e responsabilità che la legge non permette di escludere o limitare.")},
             {"id": "privacy", "titolo": "Privacy",
-             "testo": "La tua posizione resta sul tuo telefono e ArcoTour non ha account né pubblicità. Tutti i dettagli sono nell’[informativa sulla privacy](@privacy.html)."},
+             "testo": "ArcoTour non ha account né pubblicità. Le coordinate GPS restano sul dispositivo. Per visualizzare le mappe, OpenStreetMap riceve i dati tecnici della richiesta e l’area di mappa richiesta, che può indicare approssimativamente la zona in cui si trova l’utente. Tutti i dettagli sono nell’[informativa sulla privacy](@privacy.html)."},
             {"id": "modifiche", "titolo": "Modifiche a queste condizioni",
              "testo": "Se queste condizioni cambiano, aggiorniamo questa pagina e la data qui sopra, e lo diciamo nell’app prima che le modifiche valgano per te."},
             {"id": "legge", "titolo": "Legge applicabile",

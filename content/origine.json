@@ -9,5 +9,8 @@
     "content/roma/images/<scheda>_1280.jpg",
     "tools/genera_icona.py (disegno dell'icona)",
     "app/assets/google_fonts/*"
-  ]
+  ],
+  "informativa_importata_il": "2026-10-18",
+  "informativa_da_commit_app": "546a5f4ed714a754333d33f39c29fb3daef09a9e",
+  "informativa_nota": "2026-10-18: content/informativa_app.json è importato (SOLO l'informativa, non percorsi, foto, icona né caratteri) dal ramo claude/zealous-lamport-nnnozj del progetto dell'app, commit 546a5f4, che NON è ancora in main: contiene la frase sulla posizione del 18/10/2026 e 12 punti «da confermare» {!…}. Quando l'app sarà in main, rilanciare tools/importa_da_app.py (aggiorna anche percorsi, foto e commit_app) e togliere queste tre righe."
 }

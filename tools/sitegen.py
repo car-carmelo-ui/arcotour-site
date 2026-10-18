@@ -44,10 +44,20 @@ def e_segnaposto(valore) -> bool:
     return not v or v.startswith("DA_COMPLETARE")
 
 
-def bozza_legale(sito: dict) -> bool:
-    """Le pagine legali sono «in revisione» finché mancano i dati di chi pubblica o la revisione legale non è approvata."""
+PUNTO_APERTO = re.compile(r"\{[!?][^{}]+\}")  # {!testo} = scritto ma da confermare · {?etichetta} = un dato che manca nel testo
+
+
+def punti_aperti(informativa: dict) -> bool:
+    """True se il testo dell'informativa ha ancora un punto «da confermare» {!…} o un dato che manca {?…}."""
+    return bool(PUNTO_APERTO.search(json.dumps(informativa["sezioni"], ensure_ascii=False)))
+
+
+def bozza_legale(sito: dict, informativa: dict = None) -> bool:
+    """Le pagine legali sono «in revisione» finché mancano i dati di chi pubblica, la revisione legale non è approvata o il testo dell'informativa ha
+    ancora punti da confermare {!…} o dati che mancano {?…} (13/10/2026: così una pagina con un punto aperto non può passare per definitiva)."""
     v = sito["venditore"]
-    return sito.get("revisione_legale") != "approvata" or any(e_segnaposto(v[k]) for k in ("nome", "indirizzo", "email"))
+    return (sito.get("revisione_legale") != "approvata" or any(e_segnaposto(v[k]) for k in ("nome", "indirizzo", "email"))
+            or (informativa is not None and punti_aperti(informativa)))
 
 
 # ------------------------------------------------------------------------------------------------ contesto
@@ -83,7 +93,7 @@ class Ctx:
 
     @property
     def bozza(self) -> bool:
-        return bozza_legale(self.sito)
+        return bozza_legale(self.sito, self.dati["informativa"])
 
 
 # ------------------------------------------------------------------------------------------- piccolo linguaggio
@@ -108,7 +118,8 @@ def valore_venditore(ctx: Ctx, chiave: str) -> str:
 
 
 def segnaposti(ctx: Ctx, testo_escaped: str, extra: dict = None) -> str:
-    """Sostituisce {email}, {titolare}, {indirizzo}, {data}, {aggiornata}, {p24}, {p72}, {p10}, {durata}, {n} (testo già con l'escape fatto)."""
+    """Sostituisce {email}, {titolare}, {indirizzo}, {data}, {aggiornata}, {p24}, {p72}, {p10}, {durata}, {n} (testo già con l'escape fatto)
+    e i due segni dell'informativa: {?etichetta} = un dato che MANCA, {!testo} = un testo scritto che aspetta una CONFERMA."""
     lingua, sito = ctx.lingua, ctx.sito
     pass_ = {p["id"]: p for p in sito["pass"]}
     valori = {
@@ -123,6 +134,13 @@ def segnaposti(ctx: Ctx, testo_escaped: str, extra: dict = None) -> str:
     }
     for k, v in (extra or {}).items():
         valori[k] = esc(v)
+    # {?etichetta}: come per l'indirizzo, finché il dato non c'è si vede «[da completare: etichetta]» (classe `segnaposto`).
+    # {!testo}: un testo già scritto che aspetta una conferma (un legale, il titolare): evidenziato (<mark class="da-confermare">) e la pagina resta
+    # «in revisione» (bozza_legale). check_site.py non lascia pubblicare come definitiva una pagina che ne ha ancora uno. Dentro non ci sono
+    # collegamenti [testo](indirizzo): un punto da confermare è testo semplice.
+    prefisso = esc(ctx.T["ui"]["da_completare"])
+    testo_escaped = re.sub(r"\{\?([^{}]+)\}", lambda m: f'<span class="segnaposto">[{prefisso}: {m.group(1)}]</span>', testo_escaped)
+    testo_escaped = re.sub(r"\{!([^{}]+)\}", lambda m: f'<mark class="da-confermare">{m.group(1)}</mark>', testo_escaped)
     return re.sub(r"\{(\w+)\}", lambda m: valori.get(m.group(1), m.group(0)), testo_escaped)
 
 
@@ -515,7 +533,11 @@ def banner_bozza(ctx: Ctx) -> str:
     if not ctx.bozza:
         return ""
     u = ctx.T["ui"]
-    return f'<p class="bozza" role="note"><strong>{esc(u["bozza_titolo"])}</strong> {esc(tipografia(u["bozza_testo"]))}</p>'
+    # nella pagina dell'informativa, se ci sono punti evidenziati, la legenda dice che cosa sono
+    legenda = ""
+    if ctx.pagina == "privacy.html" and "{!" in json.dumps(ctx.dati["informativa"]["sezioni"], ensure_ascii=False):
+        legenda = " " + esc(u["legenda_da_confermare"])
+    return f'<p class="bozza" role="note"><strong>{esc(u["bozza_titolo"])}</strong> {esc(tipografia(u["bozza_testo"]))}{legenda}</p>'
 
 
 def pagina_supporto(ctx: Ctx) -> str:
@@ -595,7 +617,7 @@ def sitemap(dati: dict) -> str:
     sito = dati["sito"]
     righe = ['<?xml version="1.0" encoding="UTF-8"?>',
              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
-    bozza = bozza_legale(sito)
+    bozza = bozza_legale(sito, dati["informativa"])
     for pagina in PAGINE:
         if bozza and pagina in PAGINE_LEGALI:
             continue  # le pagine «in revisione» non vanno nella mappa del sito

@@ -390,6 +390,11 @@ section.senza-sopra { padding-top: 0; }
   padding: .05rem .4rem; border-radius: 6px; background: var(--ocra-chiara); border: 1px dashed var(--terracotta);
   color: var(--inchiostro); font-weight: 600; font-size: .92em; white-space: normal;
 }
+/* un testo già scritto che aspetta una conferma ({!…} nell'informativa): evidenziato, ma non è un dato mancante */
+mark.da-confermare {
+  padding: .05rem .3rem; border-radius: 6px; background: var(--ocra-chiara); border: 1px dotted var(--terracotta);
+  color: var(--inchiostro); -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
 
 /* ---------------------------------------------------------------- piè */
 .piede { margin-top: 0; padding-block: 3rem 2.25rem; background: var(--sabbia); border-top: 1px solid var(--bordo); font-size: .95rem; color: var(--secondario); }

@@ -68,12 +68,19 @@ def ricostruisci(radice: Path):
         (radice / nome).write_text(testo, encoding="utf-8")
 
 
-def dati_veri(radice: Path):
-    """Dati completi e approvati (per provare lo stato «pronto»): sono INVENTATI e vivono solo in una cartella temporanea."""
+def dati_veri(radice: Path, anche_il_testo: bool = True):
+    """Dati completi e approvati (per provare lo stato «pronto»): sono INVENTATI e vivono solo in una cartella temporanea.
+    Salvo anche_il_testo=False, anche il testo dell'informativa è «completo»: i dati che mancano {?…} sono scritti (con un testo di prova) e i punti
+    da confermare {!…} sono confermati (si tolgono le graffe)."""
     def f(d):
         d["venditore"] = {"nome": "Ditta di Prova", "indirizzo": "Via di Prova 1, 00100 Roma, Italia", "email": "assistenza@esempio.test", "partita_iva": ""}
         d["revisione_legale"] = "approvata"
     modifica_dati(radice, f)
+    if anche_il_testo:
+        testo = leggi(radice, "content/informativa_app.json")
+        testo = re.sub(r"\{\?[^{}]+\}", "un testo di prova", testo)
+        testo = re.sub(r"\{!([^{}]+)\}", r"\1", testo)
+        scrivi(radice, "content/informativa_app.json", testo)
     ricostruisci(radice)
 
 
@@ -516,6 +523,39 @@ class ControlloTrovaGliErrori(ConCopia):
         sostituisci(self.r, "index.html", '<th scope="col">Foto</th>', "<th>Foto</th>")
         self.assertTrova("senza scope")
 
+    # ------------------------------------------------------------------ 18/10/2026: la frase sulla posizione (Carmelo)
+    def test_posizione_formula_generica_in_italiano(self):
+        sostituisci(self.r, "support.html", "</main>", "<p>La tua posizione resta sul tuo telefono.</p></main>")
+        self.assertTrova("in modo generico", in_file="support.html")
+
+    def test_posizione_formula_generica_in_inglese(self):
+        sostituisci(self.r, "en/index.html", "</main>", "<p>Your location stays on your phone.</p></main>")
+        self.assertTrova("in modo generico", in_file="en/index.html")
+
+    def test_posizione_formula_generica_solo_nella_descrizione_della_pagina(self):
+        sostituisci(self.r, "privacy.html", "le coordinate GPS restano sul dispositivo, nessun account", "la tua posizione resta sul telefono, nessun account", 0)
+        self.assertTrova("in modo generico", in_file="privacy.html")
+
+    def test_posizione_le_formule_precise_sono_ammesse(self):
+        for testo in ("Le coordinate GPS restano sul dispositivo.", "GPS coordinates stay on your phone.", "Cosa resta sul tuo telefono",
+                      "La posizione GPS viene elaborata direttamente sul dispositivo."):
+            self.assertFalse(any(rx.search(testo) for rx in check_site.FORMULE_GENERICHE_SULLA_POSIZIONE), testo)
+        for testo in ("La tua posizione resta sul tuo telefono", "la posizione resta sul telefono", "Your location stays on your phone",
+                      "we need your location. It stays on your phone", "Location is processed only on the device"):
+            self.assertTrue(any(rx.search(testo) for rx in check_site.FORMULE_GENERICHE_SULLA_POSIZIONE), testo)
+
+    def test_posizione_manca_la_frase_nell_informativa_italiana(self):
+        sostituisci(self.r, "privacy.html", check_site.FRASE_MAPPE["it"].replace("'", "’"), "Per le mappe serve internet.", 0)
+        self.assertTrova("manca la frase sulla posizione", in_file="privacy.html")
+
+    def test_posizione_manca_la_frase_nell_informativa_inglese(self):
+        sostituisci(self.r, "en/privacy.html", check_site.FRASE_MAPPE["en"], "Maps need internet.", 0)
+        self.assertTrova("manca la frase sulla posizione", in_file="en/privacy.html")
+
+    def test_posizione_manca_la_precisazione_nella_pagina_iniziale(self):
+        sostituisci(self.r, "index.html", check_site.FRASE_MAPPE["it"].replace("'", "’"), "Le mappe sono di OpenStreetMap.", 0)
+        self.assertTrova("manca la precisazione su OpenStreetMap", in_file="index.html")
+
     def test_html_non_chiuso(self):
         sostituisci(self.r, "privacy.html", '<main id="contenuto">', '<main id="contenuto"><div>')
         self.assertTrova("non ben formato")
@@ -674,6 +714,9 @@ class ControlloTrovaGliErrori(ConCopia):
         self.assertTrova("non è un indirizzo email", rilascio=True)
 
     def test_il_cancello_vede_pagine_ancora_in_revisione(self):
+        # indipendente dai dati veri (dal 14/10/2026 nome e indirizzo sono scritti): nella COPIA si rimette un segnaposto di proposito
+        modifica_dati(self.r, lambda d: d["venditore"].update({"indirizzo": "DA_COMPLETARE:citta-e-paese-o-sede"}))
+        ricostruisci(self.r)
         self.assertTrova("segnaposto", rilascio=True)
         self.assertTrova("revisione", rilascio=True)
 
@@ -774,6 +817,118 @@ class Servito(unittest.TestCase):
             ids = self.sito.ids_di(pagina)
             for ancora in ("come-funzionano-i-pass", "ripristino-acquisti", "abbonamento", "rimborsi", "durata-scadenza"):
                 self.assertIn(ancora, ids, pagina)
+
+
+
+# ============================================================================================ 4. l'informativa sulla privacy
+class Informativa(ConCopia):
+    """Il testo dell'informativa (italiano e inglese): i punti da confermare si vedono evidenziati e tengono la pagina «in revisione»; i dati che
+    mancano si vedono come segnaposto; i collegamenti obbligatori ci sono."""
+
+    def aggiungi_al_testo(self, it: str, en: str, sezione: int = 0):
+        info = json.loads(leggi(self.r, "content/informativa_app.json"))
+        info["sezioni"][sezione]["testo"]["it"] += "\n\n" + it
+        info["sezioni"][sezione]["testo"]["en"] += "\n\n" + en
+        scrivi(self.r, "content/informativa_app.json", json.dumps(info, ensure_ascii=False, indent=2))
+
+    def punti(self, file):
+        return re.findall(r'<mark class="da-confermare">(.*?)</mark>', leggi(self.r, file), re.S)
+
+    def test_i_punti_da_confermare_si_vedono_evidenziati_nelle_due_lingue(self):
+        """Quanti sono lo dice il testo importato dall'app ({!…}); qui si controlla che la pagina ne mostri altrettanti, in entrambe le lingue."""
+        info = json.loads(leggi(self.r, "content/informativa_app.json"))
+        for lingua, file, legenda in (("it", "privacy.html", "I punti evidenziati sono già scritti, ma ancora da confermare."),
+                                      ("en", "en/privacy.html", "The highlighted points are already written, but still to be confirmed.")):
+            attesi = sum(len(re.findall(r"\{![^{}]+\}", s["testo"][lingua])) for s in info["sezioni"])
+            self.assertEqual(len(self.punti(file)), attesi, file)
+            if attesi:
+                self.assertIn(legenda, leggi(self.r, file), "la legenda spiega che cosa sono i punti evidenziati")
+        self.assertEqual(len(self.punti("privacy.html")), len(self.punti("en/privacy.html")))
+
+    def test_finche_resta_un_punto_da_confermare_la_pagina_e_in_revisione_anche_con_i_dati_completi(self):
+        """13/10/2026: con tutti i dati di chi pubblica e la revisione «approvata», un punto {!…} ancora aperto tiene le pagine legali in revisione,
+        non indicizzabili e fuori dalla sitemap: una pagina con un punto aperto non può passare per definitiva. Il cancello resta chiuso."""
+        self.aggiungi_al_testo("Un punto: {!scritto ma da confermare}.", "A point: {!written but to be confirmed}.")
+        dati_veri(self.r, anche_il_testo=False)
+        self.assertTrue(check_site.Sito(self.r).bozza)
+        for f in ("privacy.html", "en/privacy.html", "terms.html", "en/terms.html"):
+            testo = leggi(self.r, f)
+            self.assertIn('class="bozza"', testo, f)
+            self.assertIn("noindex", testo, f)
+        self.assertNotIn("privacy.html", leggi(self.r, "sitemap.xml"))
+        self.assertPulito()
+        self.assertTrova("da confermare", rilascio=True, in_file="privacy.html")
+        self.assertTrova("da confermare", rilascio=True, in_file="en/privacy.html")
+
+    def test_con_i_dati_completi_e_i_punti_confermati_il_sito_esce_dalla_bozza(self):
+        dati_veri(self.r)
+        self.assertFalse(check_site.Sito(self.r).bozza)
+        for f in ("privacy.html", "en/privacy.html"):
+            testo = leggi(self.r, f)
+            self.assertNotIn('class="bozza"', testo, f)
+            self.assertNotIn("<mark", testo, f)
+            self.assertNotIn("noindex", testo, f)
+        self.assertPulito(rilascio=True)
+
+    def test_una_pagina_definitiva_con_un_punto_evidenziato_non_passa(self):
+        """Se qualcuno forza lo stato «definitivo» a mano lasciando un punto evidenziato, il controllo lo vede."""
+        dati_veri(self.r)
+        scrivi(self.r, "privacy.html", leggi(self.r, "privacy.html").replace("<main", '<mark class="da-confermare">x</mark><main', 1))
+        self.assertTrova("punti da confermare", in_file="privacy.html")
+        self.assertTrova("punti «da confermare»", rilascio=True, in_file="privacy.html")
+
+    def test_un_punto_evidenziato_in_una_lingua_sola_viene_visto(self):
+        self.aggiungi_al_testo("Un punto: {!solo italiano}.", "One point.")
+        ricostruisci(self.r)
+        self.assertTrova("punti «da confermare»", in_file="en/privacy.html")
+
+    def test_un_dato_che_manca_nel_testo_si_vede_come_segnaposto_e_tiene_la_pagina_in_revisione(self):
+        """{?etichetta} segna un dato che MANCA nel testo: l'informativa d'oggi non ne ha, ma il meccanismo resta."""
+        self.aggiungi_al_testo("Per quanto tempo: {?conservazione dei messaggi}.", "For how long: {?retention of messages}.")
+        dati_veri(self.r, anche_il_testo=False)
+        it, en = leggi(self.r, "privacy.html"), leggi(self.r, "en/privacy.html")
+        self.assertIn('<span class="segnaposto">[da completare: conservazione dei messaggi]</span>', it)
+        self.assertIn('<span class="segnaposto">[to be completed: retention of messages]</span>', en)
+        self.assertIn('class="bozza"', it)
+        self.assertTrova("segnaposto", rilascio=True, in_file="privacy.html")
+
+    def test_un_dato_che_manca_in_una_lingua_sola_viene_visto(self):
+        self.aggiungi_al_testo("Per quanto tempo: {?conservazione}.", "For how long: unknown.")
+        ricostruisci(self.r)
+        self.assertTrova("dati «da completare»", in_file="en/privacy.html")
+
+    def test_il_testo_dentro_un_punto_da_confermare_e_protetto(self):
+        self.aggiungi_al_testo("Punto: {!con <b>& tutto</b>}.", "Point: {!with <b>& all</b>}.")
+        ricostruisci(self.r)
+        self.assertIn('<mark class="da-confermare">con &lt;b&gt;&amp; tutto&lt;/b&gt;</mark>', leggi(self.r, "privacy.html"))
+        self.assertIn('<mark class="da-confermare">with &lt;b&gt;&amp; all&lt;/b&gt;</mark>', leggi(self.r, "en/privacy.html"))
+
+    def test_manca_il_collegamento_all_informativa_di_openstreetmap(self):
+        for file in ("privacy.html", "en/privacy.html"):
+            copia = leggi(self.r, file)
+            scrivi(self.r, file, copia.replace("https://osmfoundation.org/wiki/Privacy_Policy", "https://esempio.test/x"))
+            self.assertTrova("openstreetmap", in_file=file)
+            scrivi(self.r, file, copia)
+
+    def test_manca_il_collegamento_ad_apple_o_al_garante(self):
+        for url in ("https://www.apple.com/legal/privacy/", "https://www.garanteprivacy.it/"):
+            copia = leggi(self.r, "en/privacy.html")
+            scrivi(self.r, "en/privacy.html", copia.replace(url, "https://esempio.test/x"))
+            self.assertTrova(url, in_file="en/privacy.html")
+            scrivi(self.r, "en/privacy.html", copia)
+
+    def test_manca_il_collegamento_per_scrivere_all_email_di_assistenza(self):
+        scrivi(self.r, "privacy.html", leggi(self.r, "privacy.html").replace("mailto:supporto.arcotour@gmail.com", "mailto:altra@esempio.test"))
+        self.assertTrova("manca il collegamento per scrivere", in_file="privacy.html")
+
+    def test_il_nome_del_titolare_e_nell_informativa_e_nelle_condizioni(self):
+        for file in ("privacy.html", "en/privacy.html", "terms.html", "en/terms.html"):
+            self.assertIn("Carmelo Albanese", leggi(self.r, file), file)
+
+    def test_la_conservazione_delle_email_e_quella_decisa(self):
+        """13/10/2026 (criterio di Carmelo): fino a 24 mesi dalla chiusura della richiesta, salvo obblighi di legge."""
+        self.assertIn("fino a 24 mesi dalla chiusura della richiesta, salvo obblighi di legge", leggi(self.r, "privacy.html"))
+        self.assertIn("up to 24 months after the request is closed, unless the law requires", leggi(self.r, "en/privacy.html"))
 
 
 if __name__ == "__main__":

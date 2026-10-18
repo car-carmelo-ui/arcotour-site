@@ -26,12 +26,14 @@ T = {
         "vai_a": "Go to",
         "bozza_titolo": "Draft under review.",
         "bozza_testo": "This page will be completed with the publisher’s details and, for the legal parts, checked by a lawyer before launch.",
+        "da_completare": "to be completed",
+        "legenda_da_confermare": "The highlighted points are already written, but still to be confirmed.",
         "segnaposto": {
             "titolare": "[to be completed: name or company name]",
             "indirizzo": "[to be completed: address]",
             "email": "[to be completed: support email]",
         },
-        "data_aggiornamento": "12 October 2026",
+        "data_aggiornamento": "13 October 2026",
     },
     "nav": [
         {"id": "roma", "etichetta": "Routes", "href": "@index.html#roma"},
@@ -132,9 +134,10 @@ T = {
         },
         "privacy": {
             "occhiello": "Privacy",
-            "h2": "Your location stays on your phone.",
+            "h2": "GPS coordinates stay on the device.",
             "testo": ("ArcoTour has no accounts, no ads and no analytics or tracking tools.\n\n"
-                      "It uses the internet for only two things: downloading maps from OpenStreetMap and, if you buy a pass, talking to Apple’s App Store."),
+                      "It uses the internet for only two things: downloading maps from OpenStreetMap and, if you buy a pass, talking to Apple’s App Store. "
+                      "To display the maps, OpenStreetMap receives the technical data of the request and the requested map area, which may approximately indicate the area where the user is located."),
             "link": "Read the privacy policy",
         },
         "crediti": {
@@ -182,7 +185,8 @@ T = {
                        "While location is in use, iOS shows an indicator.")},
                 {"id": "posizione-privacy", "q": "Why does ArcoTour use my location? Does it go to anyone?",
                  "a": ("It uses it to start the story when you reach a stop, to show you the public transport stops nearby and to guide you on foot to a stop.\n\n"
-                       "It stays on your phone: it is not saved, it does not reach us and it is not shared with anyone. You can withdraw the permission at any time in iOS Settings. "
+                       "GPS coordinates stay on the device: they are not saved, they do not reach us and they are not shared with anyone. "
+                        "To display the maps, OpenStreetMap receives the technical data of the request and the requested map area, which may approximately indicate the area where the user is located. You can withdraw the permission at any time in iOS Settings. "
                        "Details in the [privacy policy](@privacy.html).")},
             ]},
             {"id": "mappe-mezzi", "titolo": "Maps and public transport", "domande": [
@@ -240,7 +244,7 @@ T = {
     # -------------------------------------------------------------------------------------------------- privacy
     "privacy": {
         "titolo": "Privacy policy · ArcoTour",
-        "descrizione": "ArcoTour privacy policy: your location stays on your phone, no accounts, no ads, no analytics tools.",
+        "descrizione": "ArcoTour privacy policy: GPS coordinates stay on the device, no accounts, no ads, no analytics tools.",
         "occhiello": "Privacy",
         "h1": "Privacy policy",
         "sottotitolo": "The ArcoTour app (version 1.0, Rome) and this website",
@@ -256,7 +260,8 @@ T = {
                       "for security purposes, whether or not the visitor has a GitHub account. We do not use this data. How GitHub handles it is explained in its "
                       "[privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement) and on the page "
                       "[What is GitHub Pages?](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection).\n\n"
-                      "If you email us, we use your address and the content of your message only to reply to you."),
+                      "If you email us, we use your address and the content of your message only to reply to you. How long we keep them is explained in the "
+                      "“Your rights” section. The support mailbox is hosted by Google (Gmail)."),
         },
     },
     # ------------------------------------------------------------------------------------------------- terms
@@ -309,7 +314,7 @@ T = {
              "testo": ("To the extent permitted by law, ArcoTour is provided as it is, with no guarantee that it is always available or free of errors. "
                        "Nothing in these terms excludes or limits rights and liability that the law does not allow to be excluded or limited.")},
             {"id": "privacy", "titolo": "Privacy",
-             "testo": "Your location stays on your phone and ArcoTour has no accounts or ads. All the details are in the [privacy policy](@privacy.html)."},
+             "testo": "ArcoTour has no accounts or ads. GPS coordinates stay on the device. To display the maps, OpenStreetMap receives the technical data of the request and the requested map area, which may approximately indicate the area where the user is located. All the details are in the [privacy policy](@privacy.html)."},
             {"id": "modifiche", "titolo": "Changes to these terms",
              "testo": "If these terms change, we update this page and the date above, and we say so in the app before the changes apply to you."},
             {"id": "legge", "titolo": "Governing law",
